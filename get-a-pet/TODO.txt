@@ -1,0 +1,21 @@
+Show a loading screen to authenticate
+
+UI Components
+
+Header
+1. Create the title for the Header
+2. Create the navigation links.
+    a. Animals
+    b. Organizations
+
+Modal
+1. Create a reusable modal component.
+2. Create a context with functions to open and close the modal and set the content for that modal.
+
+Animals
+1. Show animals and animal summary in a list. Limit to only 20.
+2. Add a button to open animal details in a modal.
+
+Animal
+1. Display the details for the animal inside a modal
+

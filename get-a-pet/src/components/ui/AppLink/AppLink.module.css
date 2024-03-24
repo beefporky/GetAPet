@@ -1,0 +1,6 @@
+ a:hover,
+ a:active,
+ a.active {
+    color: var(--color-gray-700);
+    text-decoration:underline;
+}
