@@ -1,14 +1,21 @@
-import { json } from "react-router-dom";
+import { json, redirect } from "react-router-dom";
 import { defaultURL } from "./constants";
 
 export const getToken = () => {
     return localStorage.getItem('token');
 }
 
+export const revokeToken = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
+    localStorage.removeItem('expires_in');
+
+}
+
 type restTypes = "GET" | "PUT" | "POST" | "DELETE" | "PATCH";
 
 export const sendRequest = async (url: string, parameters?: object, method: restTypes = "GET") => {
-    // try {
+    try {
         const token = getToken();
         const requestConfig = {
             method,
@@ -34,12 +41,14 @@ export const sendRequest = async (url: string, parameters?: object, method: rest
         const data = await response.json();
     
         return data;
-    // } catch (error) {
-    //     throw json({
-    //         message: "Something went wrong with the request."
-    //     },{
-    //         status: error!.status
-    //     })
-    // }
+    } catch (error) {
+        revokeToken();
+        redirect('/');
+        throw json({
+            message: "Something went wrong with the request."
+        },{
+            status: error!.status
+        })
+    }
 
 }

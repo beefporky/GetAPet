@@ -95,7 +95,20 @@
 }
 
  */
-import { Breed } from "./Breed";
+
+export type Photo = {
+    small: string;
+    medium: string;
+    large: string;
+    full: string;
+}
+
+export type Breed = {
+    primary: string;
+    secondary?: null;
+    mixed: boolean;
+    unknown: boolean;
+}
 
 export type Animal = {
     id: string;
@@ -103,5 +116,8 @@ export type Animal = {
     type: string;
     species: string;
     url: string;
-    breeds: Breed
+    breeds: Breed;
+    description: string;
+    age: string;
+    photos: Photo[];
 }

@@ -1,13 +1,21 @@
 import { useAnimals } from "../../store/animals-context"
 import AnimalItem from "./AnimalItem";
 import { type Animal } from "../../models/Animal";
+import classes from './AnimalsList.module.css'
+import Button from "../../components/ui/Button";
 
 const AnimalsList = () => {
-    const { animals } = useAnimals();
+    const { animals, pagination } = useAnimals();
+    const nextPage = pagination.current_page + 1;
+    const loadMoreUrl = `/animals?page=${nextPage}`
+
     return (
-        <ul>
-            {animals.map((animal: Animal) => <AnimalItem key={animal.id} animal={animal as Animal} />)}
-        </ul>
+        <div className={classes.listContainer}>
+            <ul className={classes.list}>
+                {animals.map((animal: Animal) => <AnimalItem key={animal.id} animal={animal as Animal} />)}
+            </ul>
+            <Button textOnly={false} className={classes.loadMore} to={loadMoreUrl}>Load More</Button>
+        </div>
     )
 }
 

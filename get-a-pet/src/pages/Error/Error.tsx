@@ -20,6 +20,11 @@ const ErrorPage = () => {
         title = 'Not found!';
         message = 'Could not find resource or page.';
     }
+
+    if (error.status === 401) {
+        title = 'Unauthorized!';
+        message = 'You are not authorized to access this page. Please check your credentials.';
+    }
     return (
         <div>
             <h1>{title}</h1>

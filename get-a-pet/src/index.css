@@ -1,11 +1,12 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  font-family: "HelveticaNeueW01-45Ligh","HelveticaNeueW02-45Ligh","HelveticaNeueW10-45Ligh",sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: #000000de;
-  background-color: #f6ad1b;
+  background-color: #f4f3f1;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -31,6 +32,8 @@
   --color-primary-700: #fbc14d;
   --color-primary-800: #fab833;
   --color-primary-900: #f6ad1b;
+  --color-purple: #57557d;
+  --color-white: #fffaf5;
 }
 
 a {
