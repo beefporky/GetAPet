@@ -1,8 +1,8 @@
-import { useAnimals } from "../../store/animals-context"
-import AnimalItem from "./AnimalItem";
-import { type Animal } from "../../models/Animal";
+import { useAnimals } from "../../../../store/animals-context"
+import AnimalItem from "../AnimalItem/AnimalItem";
+import { type Animal } from "../../../../models/Animal";
 import classes from './AnimalsList.module.css'
-import Button from "../../components/ui/Button";
+import Button from "../../../../components/ui/Button";
 
 const AnimalsList = () => {
     const { animals, pagination } = useAnimals();

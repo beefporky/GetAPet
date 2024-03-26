@@ -7,10 +7,8 @@ export type PageError = {
 
 const ErrorPage = () => {
     const error = useRouteError();
-
     let title = 'An error occurred!';
     let message = 'Something went wrong!';
-    console.log(error.data);
 
     if (error.status === 500) {
         message = error.data.message;

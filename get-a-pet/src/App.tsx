@@ -1,13 +1,14 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Root from './pages/Root';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 import AnimalsPage from './pages/Animals/Animals';
 import OrganizationsPage from './pages/Organizations';
-import AnimalDetailsPage from './pages/AnimalDetails';
+import AnimalDetailsPage from './pages/AnimalDetails/AnimalDetails';
 import { loader as rootLoader } from './pages/Root';
 import AuthContextProvider from './store/auth-context';
 import ErrorPage from './pages/Error/Error';
 import { loader as animalsLoader } from './pages/Animals/Animals';
+// import Login, { loader as authLoader } from './pages/Login';
 
 const App = () => {
   const Router = createBrowserRouter([
@@ -31,7 +32,12 @@ const App = () => {
         path: 'organizations',
         element: <OrganizationsPage />
       }]
-    }
+    },
+    // {
+    //   path: 'login',
+    //   element: <Login />,
+    //   loader: authLoader
+    // }
   ])
   return (
     <AuthContextProvider>

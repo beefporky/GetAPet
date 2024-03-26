@@ -26,6 +26,5 @@ export async function authenticate():Promise<TokenType> {
     };
 
     const data = await sendRequest('/oauth2/token', parameters, 'POST');
-
     return data;
 }

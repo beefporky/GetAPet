@@ -1,6 +1,6 @@
-import { type Animal } from "../../models/Animal"
+import { type Animal } from "../../../../models/Animal"
 import classes from './AnimalItem.module.css'
-import animalPlaceHolder from '../../assets/animal-placeholder.png'
+import animalPlaceHolder from '../../../../assets/animal-placeholder.png'
 
 type AnimalItemProps = {
     animal: Animal;

@@ -1,5 +1,5 @@
 import Header from './Header/Header'
-import { Outlet } from 'react-router-dom'
+import { Outlet, redirect } from 'react-router-dom'
 import { Suspense, useEffect } from "react"
 import Loading from "../components/ui/Loading/Loading"
 import { defer, Await, useLoaderData } from 'react-router-dom';

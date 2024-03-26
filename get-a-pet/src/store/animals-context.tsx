@@ -17,7 +17,6 @@ type AnimalValues = {
     appendAnimals: (animals: Animal[]) => void;
     replacePagination: (pagination: Pagination) => void;
 }
-// { animals: Animal[]; pagination: Pagination; replaceAnimals: (animals: Animal[]) => void; replacePagination: (pagination: Pagination) => void; }
 
 const AnimalsContext = createContext<AnimalValues>({
     animals: [],
