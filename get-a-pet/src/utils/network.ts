@@ -1,16 +1,7 @@
 import { json, redirect } from "react-router-dom";
 import { defaultURL } from "./constants";
+import { getToken, revokeToken } from "./auth";
 
-export const getToken = () => {
-    return localStorage.getItem('token');
-}
-
-export const revokeToken = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiration');
-    localStorage.removeItem('expires_in');
-
-}
 
 type restTypes = "GET" | "PUT" | "POST" | "DELETE" | "PATCH";
 

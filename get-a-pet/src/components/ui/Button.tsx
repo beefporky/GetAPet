@@ -17,7 +17,6 @@ const Button = ({ children, textOnly, ...props }: ButtonProps | LinkProps) => {
         return <Link {...props} to={props.to} className={`${classes.button} ${props.className || ""}`}>{children}</Link>
     }
     return <button {...props} className={`${classes.button} ${props.className || ""}`}>{children}</button>
-    // return <button {...props} className={classes.button}>{children}</button>
 }
 
 export default Button

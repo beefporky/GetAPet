@@ -24,7 +24,6 @@ export async function authenticate():Promise<TokenType> {
         client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET
     };
-
     const data = await sendRequest('/oauth2/token', parameters, 'POST');
     return data;
 }

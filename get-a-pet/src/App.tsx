@@ -8,7 +8,7 @@ import { loader as rootLoader } from './pages/Root';
 import AuthContextProvider from './store/auth-context';
 import ErrorPage from './pages/Error/Error';
 import { loader as animalsLoader } from './pages/Animals/Animals';
-// import Login, { loader as authLoader } from './pages/Login';
+import Login, { loader as authLoader } from './pages/Login';
 
 const App = () => {
   const Router = createBrowserRouter([
@@ -33,11 +33,11 @@ const App = () => {
         element: <OrganizationsPage />
       }]
     },
-    // {
-    //   path: 'login',
-    //   element: <Login />,
-    //   loader: authLoader
-    // }
+    {
+      path: 'login',
+      element: <Login />,
+      loader: authLoader
+    }
   ])
   return (
     <AuthContextProvider>
