@@ -1,3 +1,8 @@
 .search {
     width: 18rem;
 }
+
+.search:hover {
+    border-color: var(--color-purple);
+    box-shadow: 1px 1px 1px 1px var(--color-purple)
+}

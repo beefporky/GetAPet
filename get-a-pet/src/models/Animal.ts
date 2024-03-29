@@ -121,3 +121,18 @@ export type Animal = {
     age: string;
     photos: Photo[];
 }
+
+export type AnimalType = {
+    name: string;
+    coats: string[];
+    colors: string[];
+    genders: "Male" | "Female" | "Unknown";
+    _links: {
+        self: {
+            href: string;
+        },
+        breeds: {
+            href: string;
+        }
+    }
+} 

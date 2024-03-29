@@ -19,3 +19,11 @@ export async function loader() {
 export function hasToken() {
     return localStorage.getItem('token') ? true : false;
 }
+
+export function isTokenValid(pathname: string) {
+    if (!hasToken()) {
+        localStorage.setItem('prevPath', pathname);
+        return true;
+    }
+    return false;
+}

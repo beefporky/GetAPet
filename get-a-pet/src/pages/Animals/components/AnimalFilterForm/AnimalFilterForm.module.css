@@ -1,0 +1,7 @@
+.filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}

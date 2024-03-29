@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { type Animal } from "../models/Animal";
+import { AnimalType, type Animal } from "../models/Animal";
 
 export type Pagination = {
     count_per_page: number;
@@ -9,13 +9,14 @@ export type Pagination = {
     _links: object;
 }
 
-
 type AnimalValues = {
     animals: Animal[];
     pagination: Pagination;
     replaceAnimals: (animals: Animal[]) => void;
     appendAnimals: (animals: Animal[]) => void;
     replacePagination: (pagination: Pagination) => void;
+    animalTypes: AnimalType[]
+    replaceAnimalTypes: (animalTypes: AnimalType[]) => void;
 }
 
 const AnimalsContext = createContext<AnimalValues>({
@@ -27,9 +28,11 @@ const AnimalsContext = createContext<AnimalValues>({
         total_pages: 0,
         _links: {}
     },
-    replaceAnimals: () => { },
-    appendAnimals: () => { },
-    replacePagination: () => { }
+    replaceAnimals() { },
+    appendAnimals() { },
+    replacePagination() { },
+    animalTypes: [],
+    replaceAnimalTypes() { }
 });
 
 export const useAnimals = () => {
@@ -44,6 +47,7 @@ type AnimalsProps = {
 
 const AnimalsContextProvider = ({ children }: AnimalsProps) => {
     const [animals, setAnimals] = useState<Animal[]>([]);
+    const [animalTypes, setAnimalTypes] = useState<AnimalType[]>([]);
     const [pagination, setPagination] = useState<Pagination>({} as Pagination);
 
     function replaceAnimals(animals: Animal[]) {
@@ -58,12 +62,18 @@ const AnimalsContextProvider = ({ children }: AnimalsProps) => {
         setPagination(pagination);
     }
 
+    function replaceAnimalTypes(animalTypes: AnimalType[]) {
+        setAnimalTypes(animalTypes);
+    }
+
     const ctx = {
-        animals: animals,
-        pagination: pagination,
+        animals,
+        pagination,
         replaceAnimals,
         appendAnimals,
-        replacePagination
+        replacePagination,
+        animalTypes,
+        replaceAnimalTypes
     }
 
     return <AnimalsContext.Provider value={ctx}>
