@@ -136,3 +136,18 @@ export type AnimalType = {
         }
     }
 } 
+
+export type AnimalAge = "baby" | "young" | "adult" | "senior";
+
+export type AnimalGender = "male" | "female" | "unknown";
+
+export type AnimalSize = "small" | "medium" | "large" | "xlarge";
+
+export type AnimalBreeds = {
+    "name": string;
+    "_links": {
+        "type": {
+            "href": string;
+        }
+    }
+}

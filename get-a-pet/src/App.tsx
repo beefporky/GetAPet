@@ -9,7 +9,10 @@ import AuthContextProvider from './store/auth-context';
 import ErrorPage from './pages/Error/Error';
 import { loader as animalsLoader } from './pages/Animals/Animals';
 import Login, { loader as authLoader } from './pages/Login';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+
+const queryClient = new QueryClient();
 const App = () => {
   const Router = createBrowserRouter([
     {
@@ -40,9 +43,11 @@ const App = () => {
     }
   ])
   return (
-    <AuthContextProvider>
-      <RouterProvider router={Router} />
-    </AuthContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
+        <RouterProvider router={Router} />
+      </AuthContextProvider>
+    </QueryClientProvider>
   )
 }
 

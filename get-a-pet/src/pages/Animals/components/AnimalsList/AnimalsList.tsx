@@ -14,7 +14,7 @@ const AnimalsList = () => {
             <ul className={classes.list}>
                 {animals.map((animal: Animal) => <AnimalItem key={animal.id} animal={animal as Animal} />)}
             </ul>
-            <Button textOnly={false} className={classes.loadMore} to={loadMoreUrl}>Load More</Button>
+            {pagination.current_page < pagination.total_pages ? <Button textOnly={false} className={classes.loadMore} to={loadMoreUrl}>Load More</Button> : <p>No Results</p>}
         </div>
     )
 }

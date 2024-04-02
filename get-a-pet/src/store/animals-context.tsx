@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import { AnimalType, type Animal } from "../models/Animal";
+import { AnimalType, type Animal, type AnimalBreeds } from "../models/Animal";
 
 export type Pagination = {
     count_per_page: number;
@@ -17,6 +17,10 @@ type AnimalValues = {
     replacePagination: (pagination: Pagination) => void;
     animalTypes: AnimalType[]
     replaceAnimalTypes: (animalTypes: AnimalType[]) => void;
+    animalTypeFilter: string;
+    updateAnimalTypeFilter: (animalType: string) => void;
+    breeds: AnimalBreeds[];
+    updateBreeds: (breeds: AnimalBreeds[]) => void;
 }
 
 const AnimalsContext = createContext<AnimalValues>({
@@ -32,7 +36,11 @@ const AnimalsContext = createContext<AnimalValues>({
     appendAnimals() { },
     replacePagination() { },
     animalTypes: [],
-    replaceAnimalTypes() { }
+    replaceAnimalTypes() { },
+    animalTypeFilter: '',
+    updateAnimalTypeFilter() { },
+    breeds: [],
+    updateBreeds() { }
 });
 
 export const useAnimals = () => {
@@ -49,6 +57,8 @@ const AnimalsContextProvider = ({ children }: AnimalsProps) => {
     const [animals, setAnimals] = useState<Animal[]>([]);
     const [animalTypes, setAnimalTypes] = useState<AnimalType[]>([]);
     const [pagination, setPagination] = useState<Pagination>({} as Pagination);
+    const [animalTypeFilter, setAnimalTypeFilter] = useState<string>('' as string);
+    const [breeds, setBreeds] = useState<AnimalBreeds[]>([]);
 
     function replaceAnimals(animals: Animal[]) {
         setAnimals(animals);
@@ -66,6 +76,15 @@ const AnimalsContextProvider = ({ children }: AnimalsProps) => {
         setAnimalTypes(animalTypes);
     }
 
+    function updateAnimalTypeFilter(animalType: string) {
+        setAnimalTypeFilter(animalType);
+    }
+
+    function updateBreeds(breeds: AnimalBreeds[]) {
+        setBreeds(breeds);
+    }
+
+
     const ctx = {
         animals,
         pagination,
@@ -73,7 +92,11 @@ const AnimalsContextProvider = ({ children }: AnimalsProps) => {
         appendAnimals,
         replacePagination,
         animalTypes,
-        replaceAnimalTypes
+        replaceAnimalTypes,
+        animalTypeFilter,
+        updateAnimalTypeFilter,
+        breeds,
+        updateBreeds
     }
 
     return <AnimalsContext.Provider value={ctx}>

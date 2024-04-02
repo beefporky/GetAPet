@@ -3,10 +3,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-grow: 1;
 }
 
 .filtersAndList {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    justify-content: left;
 }
