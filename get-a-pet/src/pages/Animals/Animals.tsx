@@ -11,10 +11,11 @@ import classes from './Animals.module.css'
 import { isTokenValid } from "../../utils/auth";
 import AnimalFilterForm from "./components/AnimalFilterForm/AnimalFilterForm";
 
-const AnimalsPage = () => {
-    const { animals, animalTypes: animalTypesPromise, animalBreeds } = useLoaderData();
-    const { replaceAnimals, replacePagination, appendAnimals, replaceAnimalTypes, animalTypes, updateBreeds, pagination } = useAnimals();
+type LoaderTypes = { animals: Promise<{ animals: Animal[], pagination: Pagination }>, animalTypes: Promise<{ types: AnimalType[] }>, animalBreeds: Promise<{ breeds: AnimalBreeds[] }> }
 
+const AnimalsPage = () => {
+    const { animals, animalTypes: animalTypesPromise, animalBreeds } = useLoaderData() as LoaderTypes;
+    const { replaceAnimals, replacePagination, appendAnimals, replaceAnimalTypes, animalTypes, updateBreeds, pagination } = useAnimals();
     useEffect(() => {
         animals.then((responseAnimals: { animals: Animal[], pagination: Pagination }) => {
             if (responseAnimals.pagination.current_page > pagination.current_page) {
