@@ -23,6 +23,7 @@ const Dropdown = ({ options, name, selectLabel, onChange }: DropdownProps) => {
     const listRef = useRef<HTMLDivElement>(null);
     const hiddenRef = useRef<HTMLInputElement>(null);
     const searchRef = useRef<HTMLInputElement>(null);
+    const [itemSelected, setItemSelected] = useState('');
 
     function handleOpen(event: React.MouseEvent<HTMLDivElement>) {
         const target = event.nativeEvent.target as HTMLElement;
@@ -33,6 +34,8 @@ const Dropdown = ({ options, name, selectLabel, onChange }: DropdownProps) => {
 
     function handleSelected(option: Option) {
         setSelectedValue(option);
+        setItemSelected(option.value as string);
+        // TODO: set highlighted
     }
 
     function handleBlur(event: React.FocusEvent<HTMLDivElement>) {
@@ -70,7 +73,7 @@ const Dropdown = ({ options, name, selectLabel, onChange }: DropdownProps) => {
                     <Button type='button' className={classes.searchButton} textOnly={false} onClick={handleSubmitSearch}>Done</Button>
                     <input type="hidden" name={name} ref={hiddenRef} />
                 </div>
-                {localOptions.map((option: Option) => <li key={option.value} className={classes.item} onClick={() => handleSelected(option)}>{option.label}</li>)}
+                {localOptions.map((option: Option) => <li key={option.value} className={`${itemSelected === option.value ? classes.itemSelected : classes.item}`} onClick={() => handleSelected(option)}>{option.label}</li>)}
             </ul>
         </div>
 

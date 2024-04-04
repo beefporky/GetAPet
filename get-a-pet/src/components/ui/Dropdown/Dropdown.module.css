@@ -1,12 +1,14 @@
 .dropdown {
     position: relative;
-    border: 0.05em solid var(--color-gray-700);
+    border: 0.07em solid var(--color-secondary);
     min-height: 1.5em;
     width: 20em;
     display: flex;
     align-items: center;
     padding: .5em;
     margin: .5em;
+    background-color: var(--color-primary);
+    border-radius: var(--default-border-radius);
 }
 
 .dropdown:focus,
@@ -24,7 +26,7 @@
     top: calc(100% + .5em);
     z-index: 1;
     border: .05em solid black;
-    background-color: var(--color-white-bg);
+    background-color: var(--color-primary);
     width: 95%;
     display: none;
     padding-left: 1em;
@@ -46,6 +48,13 @@
 
 .item:hover {
     background-color: var(--color-gray-300);
+}
+
+.itemSelected{
+    padding: .1em;
+    font-size: 1.1rem;
+    background-color: var(--color-secondary);
+    color: var(--color-gray-100);
 }
 
 .caret {

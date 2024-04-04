@@ -7,12 +7,16 @@
 
   color-scheme: light dark;
   color: #000000de;
-  background-color: #f4f3f1;
+  background-color: var(--color-primary);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --color-primary: #f3f3f3;
+  --color-secondary: #7084b3;
+  --color-accent: #ffcc8d;
 
   --color-gray-100: #f4f3f1;
   --color-gray-200: #dddbd8;
@@ -33,9 +37,11 @@
   --color-primary-700: #fbc14d;
   --color-primary-800: #fab833;
   --color-primary-900: #f6ad1b;
-  --color-purple: #57557d;
+  --color-secondary-800: #7573a3;
+
   --color-white: #fffaf5;
   --color-white-bg: #f4f3f1;
+  --default-border-radius: 0.4rem;
 }
 
 a {
@@ -75,5 +81,6 @@ ul {
 }
 
 .tilt .shape-fill {
-  fill: #FFFFFF;
+  /* fill: #FFFFFF; */
+  fill: var(--color-secondary);
 }

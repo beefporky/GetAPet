@@ -2,9 +2,11 @@
     height: 48px;
     margin-right: 5px;
     margin-left: 5px;
-    background-color: var(--color-gray-100);
-    border: 1px solid var(--color-gray-500);
+    background-color: var(--color-primary);
+    /* border: 1px solid var(--color-gray-500); */
+    border: .07em solid var(--color-secondary);
     padding-left: 5px;
     color: var(--color-gray-900);
     font-size: 18px;
+    border-radius: var(--default-border-radius);
 }

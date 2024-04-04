@@ -1,7 +1,7 @@
 import Select from '../../../../components/ui/Select/Select'
 import { useAnimals } from '../../../../store/animals-context'
 import classes from './AnimalFilterForm.module.css'
-import { Form, useSubmit } from 'react-router-dom';
+import { Form, useNavigation, useSubmit } from 'react-router-dom';
 import { DEFAULT_ANIMAL_AGE, DEFAULT_ANIMAL_GENDER, DEFAULT_ANIMAL_SIZE } from '../../../../utils/constants';
 import Dropdown from '../../../../components/ui/Dropdown/Dropdown';
 import { useRef, useState } from 'react';
@@ -32,13 +32,9 @@ const AnimalFilterForm = () => {
 
     const breedOptions = breeds.map((breed) => ({ label: breed.name, value: breed.name }));
     const typeOptions = animalTypes.map((type) => ({ label: type.name, value: type.name }));
-    debugger
-    console.log(typeValue);
-    console.log(breedOptions[0].value);
-    // TODO: fix issue where changing type does not update breed options. it is always showing the previous set of breed options
 
     function handleTypeChange(option: string) {
-        setTypeValue(option)
+        setTypeValue(option);
         handleSubmit();
     }
     return (
@@ -47,7 +43,7 @@ const AnimalFilterForm = () => {
                 <legend>Filters</legend>
                 <Form method='get' action='/animals' name='filterForm' onChange={onFilterChange} ref={formRef} onSubmit={handleSubmit}>
                     <Dropdown options={typeOptions} name="type" selectLabel="Type" onChange={handleTypeChange} />
-                    <Dropdown options={breedOptions} name="breed" selectLabel="Breed" key={typeValue} />
+                    <Dropdown options={breedOptions} name="breed" selectLabel="Breed" key={typeValue + breedOptions[0].value} />
                     <Select name="age" id="age" selectLabel="Age">
                         {DEFAULT_ANIMAL_AGE.map((age) => <option key={age} value={age}>{age}</option>)}
                     </Select>
@@ -57,7 +53,6 @@ const AnimalFilterForm = () => {
                     <Select name="gender" id="gender" selectLabel="Gender">
                         {DEFAULT_ANIMAL_GENDER.map((gender) => <option key={gender} value={gender}>{gender}</option>)}
                     </Select>
-
                 </Form>
             </fieldset>
         </aside>

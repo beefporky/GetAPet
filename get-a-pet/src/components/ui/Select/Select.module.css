@@ -2,19 +2,20 @@
     height: 48px;
     margin-right: 5px;
     margin-left: 5px;
-    background-color: var(--color-gray-100);
-    border: 1px solid var(--color-gray-500);
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-secondary);
     padding-left: 5px;
     color: var(--color-gray-900);
     font-size: 18px;
     margin-bottom: 1rem;
+    border-radius: var(--default-border-radius);
 }
 
 .select:active,
 .select:focus,
 .select:hover {
-    border-color: var(--color-purple);
-    box-shadow: 1px 1px 1px 1px var(--color-purple);
+    border-color: var(--color-secondary);
+    box-shadow: 1px 1px 1px 1px var(--color-secondary);
     cursor: pointer;
 }
 

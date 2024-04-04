@@ -4,6 +4,8 @@
     justify-content: space-evenly;
     margin-bottom: 1rem;
     margin-left: 1rem;
+    border-radius: var(--default-border-radius);
+    border-color: var(--color-secondary);
 }
 
 .aside {
