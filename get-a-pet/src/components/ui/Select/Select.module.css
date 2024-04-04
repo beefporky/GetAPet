@@ -15,8 +15,9 @@
 .select:focus,
 .select:hover {
     border-color: var(--color-secondary);
-    box-shadow: 1px 1px 1px 1px var(--color-secondary);
+    box-shadow: .07em .07em .07em .07em var(--color-secondary);
     cursor: pointer;
+    transition: box-shadow .3s;
 }
 
 .selectContainer {

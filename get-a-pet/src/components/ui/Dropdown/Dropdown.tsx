@@ -23,7 +23,7 @@ const Dropdown = ({ options, name, selectLabel, onChange }: DropdownProps) => {
     const listRef = useRef<HTMLDivElement>(null);
     const hiddenRef = useRef<HTMLInputElement>(null);
     const searchRef = useRef<HTMLInputElement>(null);
-    const [itemSelected, setItemSelected] = useState('');
+    const [itemSelected, setItemSelected] = useState<Option>({ label: selectLabel, value: '' });
 
     function handleOpen(event: React.MouseEvent<HTMLDivElement>) {
         const target = event.nativeEvent.target as HTMLElement;
@@ -33,9 +33,8 @@ const Dropdown = ({ options, name, selectLabel, onChange }: DropdownProps) => {
     }
 
     function handleSelected(option: Option) {
-        setSelectedValue(option);
-        setItemSelected(option.value as string);
-        // TODO: set highlighted
+        // setSelectedValue(option);
+        setItemSelected(option);
     }
 
     function handleBlur(event: React.FocusEvent<HTMLDivElement>) {
@@ -53,8 +52,9 @@ const Dropdown = ({ options, name, selectLabel, onChange }: DropdownProps) => {
     function handleSubmitSearch(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         setIsOpen(false);
-        hiddenRef.current!.value = selectedValue.value as string;
-        onChange && onChange(selectedValue.value as string);
+        setSelectedValue(itemSelected);
+        hiddenRef.current!.value = itemSelected.value as string;
+        onChange && onChange(itemSelected.value as string);
         resetSearch();
     }
 
@@ -73,7 +73,7 @@ const Dropdown = ({ options, name, selectLabel, onChange }: DropdownProps) => {
                     <Button type='button' className={classes.searchButton} textOnly={false} onClick={handleSubmitSearch}>Done</Button>
                     <input type="hidden" name={name} ref={hiddenRef} />
                 </div>
-                {localOptions.map((option: Option) => <li key={option.value} className={`${itemSelected === option.value ? classes.itemSelected : classes.item}`} onClick={() => handleSelected(option)}>{option.label}</li>)}
+                {localOptions.map((option: Option) => <li key={option.value} className={`${itemSelected.value === option.value ? classes.itemSelected : classes.item}`} onClick={() => handleSelected(option)}>{option.label}</li>)}
             </ul>
         </div>
 

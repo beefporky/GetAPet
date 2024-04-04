@@ -12,10 +12,15 @@
 }
 
 .dropdown:focus,
-.dropdown:active {
-    border-color: blue;
+.dropdown:active,
+.dropdown:hover {
+    border-color: var(--color-secondary);
     cursor: pointer;
+    border-width: .1em;
+    box-shadow: .07em .07em .07em .07em var(--color-secondary);
+    transition: box-shadow .3s;
 }
+
 
 .value {
     flex-grow: 1;
@@ -48,6 +53,7 @@
 
 .item:hover {
     background-color: var(--color-gray-300);
+    transition: background-color .2s ease-in;
 }
 
 .itemSelected{
@@ -55,6 +61,7 @@
     font-size: 1.1rem;
     background-color: var(--color-secondary);
     color: var(--color-gray-100);
+    transition: color, background-color .4s ease-out;
 }
 
 .caret {

@@ -1,7 +1,7 @@
 .button {
     height: 3rem;
     width: 8rem;
-    border: 1px solid var(--color-gray-500);
+    border: .07em solid var(--color-secondary);
     background-color: var(--color-accent);
     color: black;
     font-weight: 600;
@@ -12,6 +12,6 @@
     cursor: pointer;
     background-color: var(--color-secondary);
     color: var(--color-white);
-    transition: color .5s, background-color .5s;
+    transition: color .4s, background-color .4s;
 }
 
