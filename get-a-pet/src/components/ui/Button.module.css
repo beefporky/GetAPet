@@ -15,3 +15,16 @@
     transition: color .4s, background-color .4s;
 }
 
+.textButton {
+    height: 3rem;
+    width: 8rem;
+    color: black;
+    font-weight: 600;
+}
+
+.textButton:hover {
+    cursor: pointer;
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    transition: color .4s, background-color .4s;
+}

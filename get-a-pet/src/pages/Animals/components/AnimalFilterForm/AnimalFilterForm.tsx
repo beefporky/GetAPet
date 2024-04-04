@@ -37,13 +37,16 @@ const AnimalFilterForm = () => {
         setTypeValue(option);
         handleSubmit();
     }
+    function handleBreedChange() {
+        handleSubmit();
+    }
     return (
         <aside className={classes.aside}>
             <fieldset className={classes.filters}>
                 <legend>Filters</legend>
                 <Form method='get' action='/animals' name='filterForm' onChange={onFilterChange} ref={formRef} onSubmit={handleSubmit}>
                     <Dropdown options={typeOptions} name="type" selectLabel="Type" onChange={handleTypeChange} />
-                    <Dropdown options={breedOptions} name="breed" selectLabel="Breed" key={typeValue + breedOptions[0].value} />
+                    <Dropdown options={breedOptions} name="breed" selectLabel="Breed" key={typeValue + breedOptions[0].value} hasSearch={false} onChange={handleBreedChange} />
                     <Select name="age" id="age" selectLabel="Age">
                         {DEFAULT_ANIMAL_AGE.map((age) => <option key={age} value={age}>{age}</option>)}
                     </Select>

@@ -1,0 +1,17 @@
+.item {
+    padding: .1em;
+    font-size: 1.1rem;
+}
+
+.item:hover {
+    background-color: var(--color-gray-300);
+    transition: background-color .2s ease-in;
+}
+
+.itemSelected{
+    padding: .1em;
+    font-size: 1.1rem;
+    background-color: var(--color-secondary);
+    color: var(--color-gray-100);
+    transition: color, background-color .4s ease-out;
+}

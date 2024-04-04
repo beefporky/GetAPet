@@ -10,13 +10,14 @@ type ButtonProps = {
 type LinkProps = {
     children: ReactNode;
     to: string;
+    textOnly: boolean;
 } & ComponentPropsWithoutRef<typeof Link>
 
 const Button = ({ children, textOnly, ...props }: ButtonProps | LinkProps) => {
     if ("to" in props) {
-        return <Link {...props} to={props.to} className={`${classes.button} ${props.className || ""}`}>{children}</Link>
+        return <Link {...props} to={props.to} className={`${!textOnly ? classes.button : classes.textButton} ${props.className || ""}`}>{children}</Link>
     }
-    return <button {...props} className={`${classes.button} ${props.className || ""}`}>{children}</button>
+    return <button {...props} className={`${!textOnly ? classes.button : classes.textButton} ${props.className || ""}`}>{children}</button>
 }
 
 export default Button

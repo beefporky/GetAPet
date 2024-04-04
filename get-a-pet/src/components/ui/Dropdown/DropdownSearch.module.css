@@ -1,0 +1,17 @@
+.searchContainer {
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+}
+
+.searchField {
+    flex: 3;
+    margin: .5em;
+    margin-left: 0px;
+}
+
+.searchButton {
+    flex: 1;
+    margin: .5em;
+    margin-top: .6em;
+}
