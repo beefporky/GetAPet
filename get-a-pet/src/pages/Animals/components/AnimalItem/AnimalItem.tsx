@@ -5,6 +5,8 @@ import animalPlaceHolder from '../../../../assets/animal-placeholder.png'
 type AnimalItemProps = {
     animal: Animal;
 }
+
+// TODO: provide two columns for the list on medium screens
 const AnimalItem = ({ animal }: AnimalItemProps) => {
     const img = animal.photos.length > 0 ? animal.photos[0].medium : animalPlaceHolder;
     return (

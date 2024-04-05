@@ -11,6 +11,7 @@ const AnimalsList = () => {
     const loadMoreUrl = `/animals?page=${nextPage}`
     const { state } = useNavigation();
 
+    // TODO: add sorting
     return (
         <div className={classes.listContainer}>
             <ul className={state === 'loading' ? `${classes.list} ${classes.disabled}` : classes.list}>
