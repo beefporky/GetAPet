@@ -16,6 +16,7 @@ type LoaderTypes = { animals: Promise<{ animals: Animal[], pagination: Paginatio
 const AnimalsPage = () => {
     const { animals, animalTypes: animalTypesPromise, animalBreeds } = useLoaderData() as LoaderTypes;
     const { replaceAnimals, replacePagination, appendAnimals, replaceAnimalTypes, animalTypes, updateBreeds, pagination } = useAnimals();
+
     useEffect(() => {
         animals.then((responseAnimals: { animals: Animal[], pagination: Pagination }) => {
             if (responseAnimals.pagination.current_page > pagination.current_page) {

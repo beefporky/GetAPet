@@ -3,34 +3,34 @@ import DropdownSearch from './DropdownSearch';
 import { useEffect, useRef, useState } from 'react'
 import classes from './Dropdown.module.css'
 
-export type Option = {
+export type DropdownOption = {
     label: string;
     value: string | number;
 }
 
 type DropdownProps = {
-    options: Option[];
+    options: DropdownOption[];
     name: string;
     selectLabel: string;
     onChange?: (option: string) => void;
     hasSearch?: boolean;
+    value: string;
 }
 
-const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true }: DropdownProps) => {
+const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true, value }: DropdownProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedValue, setSelectedValue] = useState<Option>({ label: selectLabel, value: '' });
+    const [selectedValue, setSelectedValue] = useState<DropdownOption>({ label: selectLabel, value: '' });
     const duplicateOptions = JSON.parse(JSON.stringify(options));
     const [localOptions, setLocalOptions] = useState(duplicateOptions);
     const listRef = useRef<HTMLDivElement>(null);
-    const [hiddenValue, setHiddenValue] = useState('');
     const [searchValue, setSearchValue] = useState('');
-    const [itemSelected, setItemSelected] = useState<Option>({ label: selectLabel, value: '' });
+    const [itemSelected, setItemSelected] = useState<DropdownOption>({ label: selectLabel, value: '' });
 
     useEffect(() => {
         handleSubmitSearch();
         onChange && onChange(itemSelected.value as string);
         resetSearch();
-    }, [hiddenValue]);
+    }, [selectedValue]);
 
     function handleOpen(event: React.MouseEvent<HTMLDivElement>) {
         const target = event.nativeEvent.target as HTMLElement;
@@ -39,11 +39,10 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true }: Dr
         }
     }
 
-    function handleSelected(option: Option) {
+    function handleSelected(option: DropdownOption) {
         setItemSelected(option);
         if (!hasSearch) {
             setSelectedValue(option);
-            setHiddenValue(option.value as string);
         }
     }
 
@@ -57,7 +56,7 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true }: Dr
 
     function handleFilter(event: React.ChangeEvent<HTMLInputElement>) {
         setSearchValue(event.target.value);
-        setLocalOptions(duplicateOptions.filter((option: Option) => option.label.toLowerCase().includes(event.target.value.toLowerCase())));
+        setLocalOptions(duplicateOptions.filter((option: DropdownOption) => option.label.toLowerCase().includes(event.target.value.toLowerCase())));
     }
 
     function handleSubmitSearch(event?: React.MouseEvent<HTMLButtonElement>) {
@@ -67,11 +66,8 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true }: Dr
         setIsOpen(false);
         if (hasSearch) {
             setSelectedValue(itemSelected);
+            resetSearch();
         }
-        // hiddenRef.current!.value = itemSelected.value as string;
-        // setHiddenValue(itemSelected.value as string);
-        // onChange && onChange(itemSelected.value as string);
-        // resetSearch();
     }
 
     function resetSearch() {
@@ -79,24 +75,18 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true }: Dr
         setSearchValue('');
     }
 
-    function hiddenValueChange(event: React.ChangeEvent<HTMLInputElement>) {
-        setHiddenValue(event.target.value);
-    }
-
     // TODO: implement make the dropdown have a multi-select feature by passing a boolean value of "multi" to the props
     // TODO: show loading spinner when fetching data from an API which should block the whole screen
     // TODO: the breed dropdown should not be interactive when the type dropdown value is changed but only until it is finished loading the new breeds
-    // TODO: add a check on the selected values
     // TODO: add a de-select functionality to the DropdownItem component
-    // TODO: fix the type dropdown 
     return (
         <div tabIndex={0} className={classes.dropdown} onClick={handleOpen} onBlur={handleBlur} ref={listRef}>
             <span className={classes.value}>{selectedValue.label}</span>
             <div className={classes.caret}></div>
-            <input type="hidden" name={name} onChange={hiddenValueChange} value={hiddenValue} />
+            <input type="hidden" name={name} value={value} />
             <ul className={`${classes.dropdownValues} ${isOpen ? classes.show : null}`}>
-                {hasSearch && <DropdownSearch handleFilter={handleFilter} handleSubmitSearch={handleSubmitSearch} />}
-                {localOptions.map((option: Option) => {
+                {hasSearch && <DropdownSearch handleFilter={handleFilter} handleSubmitSearch={handleSubmitSearch} value={searchValue} />}
+                {localOptions.map((option: DropdownOption) => {
                     return <DropdownItem key={option.value} handleSelected={handleSelected} option={option} itemSelected={itemSelected} />
                 })}
             </ul>

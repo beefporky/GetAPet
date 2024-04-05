@@ -1,5 +1,5 @@
 import { sendRequest } from "../utils/network";
-import { convertObjectToStringQuery } from "../utils/utils";
+import { convertObjectToStringQuery, removeEmptyObjectValues } from "../utils/utils";
 
 let isAnimalTypesLoaded = false;
 
@@ -10,7 +10,8 @@ const defaultFilters = {
 }
 
 export const getAnimals = async(filters: object) => {
-    const filterString = Object.keys(filters).length > 0 ? convertObjectToStringQuery(filters).concat(`&limit=20`) : convertObjectToStringQuery(defaultFilters);
+    const filtersWithValues = removeEmptyObjectValues(filters);
+    const filterString = Object.keys(filtersWithValues).length > 0 ? convertObjectToStringQuery(filtersWithValues).concat(`&limit=20`) : convertObjectToStringQuery(defaultFilters);
     const data = await sendRequest(`/animals?${filterString}`);
 
     return data;

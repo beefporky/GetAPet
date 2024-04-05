@@ -84,7 +84,6 @@ const AnimalsContextProvider = ({ children }: AnimalsProps) => {
         setBreeds(breeds);
     }
 
-
     const ctx = {
         animals,
         pagination,
