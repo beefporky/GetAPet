@@ -52,7 +52,6 @@ const AnimalFilterForm = ({ filterFormDataChange }: AnimalFilterFormProps) => {
         }
         const data = Object.fromEntries(formData);
         const dataWithPage = { ...data, page: 1 };
-        debugger
         submit(dataWithPage);
     }
 

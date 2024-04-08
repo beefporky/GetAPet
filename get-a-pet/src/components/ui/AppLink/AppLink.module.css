@@ -1,6 +1,8 @@
- a:hover,
+a:hover,
  a:active,
  a.active {
-    color: var(--color-gray-700);
-    text-decoration:underline;
+    color: var(--color-white);
+    background-color: var(--color-accent);
+    border-radius: 1.4em;
+    transition: background-color .4s;
 }

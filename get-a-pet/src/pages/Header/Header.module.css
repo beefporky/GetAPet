@@ -6,10 +6,10 @@
     margin-right: 6.5rem;
 }
 
-
-.header h1 {
+.headerText {
     font-size: 3rem;
     animation: swing-in-left-fwd 1s;
+    color: var(--color-secondary);
 }
 
 .swing-in-left-fwd {
@@ -34,12 +34,16 @@
     flex-direction: row;
 }
 
-.nav .list a {
-    color: var(--color-gray-100);
-}
-
 .list a {
-    margin-left: 1rem;
-    font-size: 1.5rem;
+    color: var(--color-secondary);
+    margin: .3em;
+    font-size: 1.3rem;
+    padding: .3em 1.3em .3em 1.3em;
 }
 
+.nav .list a:hover{
+    color: var(--color-white);
+    background-color: var(--color-accent);
+    border-radius: 1.4em;
+    transition: background-color .4s;
+}
