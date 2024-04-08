@@ -8,8 +8,6 @@ export type DropdownOption = {
     value: string | number;
 }
 
-const DEFAULT_DROPDOWN_OPTION: DropdownOption = [{ label: 'Select', value: '' }];
-
 type DropdownProps = {
     options: DropdownOption[];
     name: string;
@@ -18,17 +16,18 @@ type DropdownProps = {
     hasSearch?: boolean;
     value: string;
     multi?: boolean;
+    disabled?: boolean;
+    closeOnSelect?: boolean;
 }
 
-const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true, value, multi = false }: DropdownProps) => {
+const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = false, value, multi = false, disabled = false, closeOnSelect }: DropdownProps) => {
+    const DEFAULT_DROPDOWN_OPTION: DropdownOption[] = [{ label: selectLabel, value: '' }];
     const [isOpen, setIsOpen] = useState(false);
-    // const [selectedValue, setSelectedValue] = useState<DropdownOption>({ label: selectLabel, value: '' });
-    const [selectedValue, setSelectedValue] = useState<DropdownOption[]>([{ label: selectLabel, value: '' }]);
+    const [selectedValue, setSelectedValue] = useState<DropdownOption[]>(DEFAULT_DROPDOWN_OPTION);
     const duplicateOptions = JSON.parse(JSON.stringify(options));
     const [localOptions, setLocalOptions] = useState(duplicateOptions);
     const listRef = useRef<HTMLDivElement>(null);
     const [searchValue, setSearchValue] = useState('');
-    // const [itemSelected, setItemSelected] = useState<DropdownOption>({ label: selectLabel, value: '' });
     const [itemsSelected, setItemsSelected] = useState<DropdownOption[]>([{ label: selectLabel, value: '' }]);
 
     useEffect(() => {
@@ -48,8 +47,7 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true, valu
     function handleSelected(option: DropdownOption) {
         setItemsSelected(prevSelections => {
             if (multi) {
-                const existingSelection = findSelected(option);
-                return existingSelection.length > 0 ? prevSelections.filter((item: DropdownOption) => item.value !== option.value) : [...prevSelections, option];
+                return multiSelected(option, prevSelections);
             } else {
                 return [option];
             }
@@ -57,12 +55,23 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true, valu
         if (!hasSearch) {
             setSelectedValue(prevSelections => {
                 if (multi) {
-                    const existingSelection = findSelected(option);
-                    return existingSelection.length > 0 ? prevSelections.filter((item: DropdownOption) => item.value !== option.value) : [...prevSelections, option];
+                    return multiSelected(option, prevSelections);
                 } else {
                     return [option];
                 }
             });
+        }
+    }
+
+    function multiSelected(option: DropdownOption, prevSelections: DropdownOption[]) {
+        const existingSelection = findSelected(option);
+        if (existingSelection.length > 0) {
+            const result = prevSelections.filter((item: DropdownOption) => item.value !== option.value && item.value !== '')
+            return result.length === 0 ? DEFAULT_DROPDOWN_OPTION : result
+            // return existingSelection.length > 0 ? prevSelections.filter((item: DropdownOption) => item.value !== option.value && item.value !== '') : [...prevSelections, option];
+        } else {
+            const nonEmptySelections = prevSelections.filter((item: DropdownOption) => item.value !== '')
+            return [...nonEmptySelections, option]
         }
     }
 
@@ -87,10 +96,13 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true, valu
         if (event) {
             event.preventDefault();
         }
-        setIsOpen(false);
         if (hasSearch) {
+            setIsOpen(false);
             setSelectedValue(itemsSelected);
             resetSearch();
+        }
+        if (closeOnSelect) {
+            setIsOpen(false);
         }
     }
 
@@ -99,15 +111,12 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true, valu
         setSearchValue('');
     }
 
-    // TODO: implement make the dropdown have a multi-select feature by passing a boolean value of "multi" to the props
-    // TODO: show loading spinner when fetching data from an API which should block the whole screen
-    // TODO: the breed dropdown should not be interactive when the type dropdown value is changed but only until it is finished loading the new breeds
-    // TODO: add a de-select functionality to the DropdownItem component
     function spreadValues() {
         return selectedValue.map((item) => item.label).join(',');
     }
+
     return (
-        <div tabIndex={0} className={classes.dropdown} onClick={handleOpen} onBlur={handleBlur} ref={listRef}>
+        <div tabIndex={0} className={disabled ? `${classes.dropdown} ${classes.disabled}` : classes.dropdown} onClick={handleOpen} onBlur={handleBlur} ref={listRef}>
             <span className={classes.value}>{spreadValues()}</span>
             <div className={classes.caret}></div>
             <input type="hidden" name={name} value={value} />
@@ -115,7 +124,7 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = true, valu
                 {hasSearch && <DropdownSearch handleFilter={handleFilter} handleSubmitSearch={handleSubmitSearch} value={searchValue} />}
                 {localOptions.map((option: DropdownOption) => {
                     const itemSelected = findSelected(option) || DEFAULT_DROPDOWN_OPTION;
-                    return <DropdownItem key={option.value} handleSelected={handleSelected} option={option} itemSelected={itemSelected[0]} />
+                    return <DropdownItem key={option.value} handleSelected={handleSelected} option={option} itemSelected={itemSelected[0]} closeOnSelect={closeOnSelect} />
                 })}
             </ul>
         </div>

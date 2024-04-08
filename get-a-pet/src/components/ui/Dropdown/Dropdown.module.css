@@ -55,3 +55,8 @@
     border-top-color: var(--color-gray-700);
     margin: 0.5em;
 }
+
+.disabled {
+    pointer-events: none;
+    opacity: .5;
+}

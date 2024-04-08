@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { getAnimalBreeds, getAnimalTypes, getAnimals } from "../../services/animal";
 import { Await, defer, redirect, useLoaderData } from "react-router-dom";
 import Loading from "../../components/ui/Loading/Loading";
@@ -16,6 +16,7 @@ type LoaderTypes = { animals: Promise<{ animals: Animal[], pagination: Paginatio
 const AnimalsPage = () => {
     const { animals, animalTypes: animalTypesPromise, animalBreeds } = useLoaderData() as LoaderTypes;
     const { replaceAnimals, replacePagination, appendAnimals, replaceAnimalTypes, animalTypes, updateBreeds, pagination } = useAnimals();
+    const [filterFormData, setFilterFormData] = useState<object>({});
 
     useEffect(() => {
         animals.then((responseAnimals: { animals: Animal[], pagination: Pagination }) => {
@@ -42,14 +43,18 @@ const AnimalsPage = () => {
         });
     }, [animalBreeds]);
 
+    function filterFormDataChange(formData: object) {
+        setFilterFormData(formData);
+    }
+
     return (
         <Suspense fallback={<Loading />}>
             <Await resolve={animals}>
                 <main className={classes.animals}>
                     <AnimalSearchBar />
                     <div className={classes.filtersAndList}>
-                        <AnimalFilterForm />
-                        <AnimalsList />
+                        <AnimalFilterForm filterFormDataChange={filterFormDataChange} />
+                        <AnimalsList filterFormData={filterFormData} />
                     </div>
                 </main>
             </Await>
