@@ -71,7 +71,6 @@ type Request = {
 }
 
 // TODO: make sure router url works when pasted in another incognito browser
-// TODO: fix the issue where login is failing at first load
 export async function loader({ request }: Request) {
     const newUrl = new URL(request.url);
     const filters = Object.fromEntries(newUrl.searchParams.entries());

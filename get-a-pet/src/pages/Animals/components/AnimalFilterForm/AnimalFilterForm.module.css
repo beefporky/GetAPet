@@ -6,6 +6,13 @@
     margin-left: 1rem;
     border-radius: var(--default-border-radius);
     border-color: var(--color-secondary);
+    width: 20vw;
+}
+
+@media screen and (max-width: 768px) {
+    .filters {
+        width: 100%;
+    }
 }
 
 .aside {

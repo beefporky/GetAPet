@@ -25,7 +25,7 @@ export default function AuthContextProvider({ children }: AuthProps) {
 
     function handleToken(val: TokenType) {
         const expiration = new Date();
-        expiration.setHours(val.expires_in + 1);
+        expiration.setSeconds(expiration.getSeconds() + val.expires_in);
         localStorage.setItem('token', val.access_token);
         localStorage.setItem('expiration', expiration.toISOString());
         localStorage.setItem('expires_in', val.expires_in.toString());

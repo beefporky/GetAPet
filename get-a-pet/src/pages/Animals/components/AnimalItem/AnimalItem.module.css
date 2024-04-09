@@ -15,6 +15,14 @@
     border-bottom-left-radius: var(--default-border-radius);
 }
 
+.item:hover {
+    border-color: var(--color-secondary);
+    cursor: pointer;
+    border-width: .1em;
+    box-shadow: .07em .07em .07em .07em var(--color-secondary);
+    transition: box-shadow .3s;
+}
+
 .itemDetails {
     flex: 1;
     display: flex;
