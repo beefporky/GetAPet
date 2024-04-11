@@ -1,5 +1,5 @@
 .search {
-    width: 18rem;
+    width: 100%;
 }
 
 .search:hover {
@@ -9,4 +9,6 @@
 
 .searchContainer {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }

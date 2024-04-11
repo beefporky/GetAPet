@@ -6,22 +6,17 @@ type AnimalItemProps = {
     animal: Animal;
 }
 
-// TODO: provide two columns for the list on medium screens
 const AnimalItem = ({ animal }: AnimalItemProps) => {
     const img = animal.photos.length > 0 ? animal.photos[0].medium : animalPlaceHolder;
     return (
-        <li>
-            <div className={classes.item}>
-                <img src={img} alt={animal.name} />
-                <div className={classes.itemDetails}>
-                    <div className={classes.text}>
-                        <h3>Name: {animal.name}</h3>
-                        <p>Type: {animal.type}</p>
-                        <p>Primary Breed: {animal.breeds.primary}</p>
-                        <p>Mixed Breed: {animal.breeds.mixed ? "Yes" : "No"}</p>
-                        {animal.breeds.mixed && <p>Secondary Breed: {animal.breeds.secondary}</p>}
-                        <p>Age: {animal.age}</p>
-                    </div>
+        <li className={classes.listItem}>
+            <img src={img} alt={animal.name} />
+            <div className={classes.itemDetails}>
+                <div className={classes.text}>
+                    <h3>{animal.name}</h3>
+                    <p className={classes.animalType}>{animal.type}</p>
+                    <p>{animal.breeds.primary}</p>
+                    <p>{animal.age}</p>
                 </div>
             </div>
         </li>

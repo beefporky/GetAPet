@@ -1,8 +1,32 @@
 import classes from './Header.module.css';
 import AppLink from "../../components/ui/AppLink/AppLink";
-import { Link } from 'react-router-dom';
+import { IoMenuSharp, IoCloseSharp } from "react-icons/io5";
+import { useState } from 'react';
 
 const Header = () => {
+    const [menuActive, setMenuActive] = useState(false);
+
+    function toggleMenuActive() {
+        setMenuActive(prevState => !prevState);
+    }
+
+    const links = [{
+        name: 'Home',
+        link: '/',
+        isNav: true
+    }, {
+        name: 'Animals',
+        link: '/animals',
+        isNav: true
+    }, {
+        name: 'Organizations',
+        link: '/organizations',
+        isNav: true
+    }];
+
+    function handleLinkClick() {
+        setMenuActive(prevState => !prevState);
+    }
     return (
         <header className={classes.header}>
             {/* <div className='tilt'>
@@ -10,14 +34,16 @@ const Header = () => {
                     <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" className="shape-fill"></path>
                 </svg>
             </div> */}
+            <div className={classes.mobileBtn} onClick={toggleMenuActive}>{!menuActive ? <IoMenuSharp /> : <IoCloseSharp />}</div>
             <h1 className={classes.headerText}>Get a Pet</h1>
             <nav className={classes.nav}>
-                <ul className={classes.list}>
-                    <li><AppLink isNav={true} to="/">Home</AppLink></li>
-                    <li><AppLink isNav={true} to="/animals">Animals</AppLink></li>
-                    <li><AppLink isNav={true} to="/organizations">Organizations</AppLink></li>
+                <ul className={menuActive ? [classes.list, classes.active].join(' ') : classes.list}>
+                    {
+                        links.map(link => <li><AppLink isNav={link.isNav} to={link.link} onClick={handleLinkClick}>{link.name}</AppLink></li>)
+                    }
                 </ul>
             </nav>
+            <div></div>
         </header >
     )
 }

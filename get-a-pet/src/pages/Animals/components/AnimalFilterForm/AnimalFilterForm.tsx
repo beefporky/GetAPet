@@ -6,12 +6,13 @@ import Dropdown from '../../../../components/ui/Dropdown/Dropdown';
 import { useEffect, useRef, useState } from 'react';
 import Button from '../../../../components/ui/Button';
 
-
 type AnimalFilterFormProps = {
     filterFormDataChange: (formData: object) => void;
+    isMobileFilterOpen: boolean;
+    toggleFilterForm: () => void;
 }
 
-const AnimalFilterForm = ({ filterFormDataChange }: AnimalFilterFormProps) => {
+const AnimalFilterForm = ({ filterFormDataChange, isMobileFilterOpen, toggleFilterForm }: AnimalFilterFormProps) => {
     const { animalTypes, breeds } = useAnimals();
     const submit = useSubmit();
     const formRef = useRef<HTMLFormElement>(null);
@@ -79,16 +80,19 @@ const AnimalFilterForm = ({ filterFormDataChange }: AnimalFilterFormProps) => {
     }
 
     return (
-        <aside className={classes.aside}>
-            <fieldset className={classes.filters}>
-                <legend>Filters</legend>
-                <Form method='get' action='/animals' name='filterForm' onChange={onFilterChange} ref={formRef} onSubmit={handleSubmit}>
+        <aside className={classes.filterContainer}>
+            <fieldset className={isMobileFilterOpen ? [classes.filters, classes.active].join(' ') : classes.filters}>
+                <legend className={classes.filterLegend}>Filters</legend>
+                <Form method='get' action='/animals' name='filterForm' onChange={onFilterChange} ref={formRef} onSubmit={handleSubmit} className={classes.filterForm}>
                     <Dropdown options={typeOptions} name="type" selectLabel="Type" onChange={handleTypeChange} value={typeValue} hasSearch />
                     <Dropdown options={breedOptions} name="breed" selectLabel="Breed" key={typeValue + breedOptions[0].value} onChange={handleBreedChange} value={breedValue} multi hasSearch disabled={breedDisabled} />
                     <Dropdown options={ageOptions} name="age" selectLabel="Age" onChange={handleAgeChange} value={ageValue} multi />
                     <Dropdown options={sizeOptions} name="size" selectLabel="Size" onChange={handleSizeChange} value={sizeValue} multi />
                     <Dropdown options={genderOptions} name="gender" selectLabel="Gender" onChange={handleGenderChange} value={genderValue} multi />
-                    <Button textOnly={false} type='reset'>Reset</Button>
+                    <div>
+                        <Button textOnly={false} type='reset'>Reset</Button>
+                        <Button textOnly={false} type='button' onClick={toggleFilterForm} className={classes.resultsToggle}>Show Results</Button>
+                    </div>
                 </Form>
             </fieldset>
         </aside>

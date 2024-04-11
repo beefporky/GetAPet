@@ -17,6 +17,7 @@ const AnimalsPage = () => {
     const { animals, animalTypes: animalTypesPromise, animalBreeds } = useLoaderData() as LoaderTypes;
     const { replaceAnimals, replacePagination, appendAnimals, replaceAnimalTypes, animalTypes, updateBreeds, pagination } = useAnimals();
     const [filterFormData, setFilterFormData] = useState<object>({});
+    const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
     useEffect(() => {
         animals.then((responseAnimals: { animals: Animal[], pagination: Pagination }) => {
@@ -47,14 +48,18 @@ const AnimalsPage = () => {
         setFilterFormData(formData);
     }
 
+    function toggleFilterForm() {
+        setIsMobileFilterOpen(prev => !prev);
+    }
+
     return (
         <Suspense fallback={<Loading />}>
             <Await resolve={animals}>
                 <main className={classes.animals}>
                     <AnimalSearchBar />
                     <div className={classes.filtersAndList}>
-                        <AnimalFilterForm filterFormDataChange={filterFormDataChange} />
-                        <AnimalsList filterFormData={filterFormData} />
+                        <AnimalFilterForm filterFormDataChange={filterFormDataChange} isMobileFilterOpen={isMobileFilterOpen} toggleFilterForm={toggleFilterForm} />
+                        <AnimalsList filterFormData={filterFormData} toggleFilterForm={toggleFilterForm} />
                     </div>
                 </main>
             </Await>

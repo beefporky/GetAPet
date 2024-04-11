@@ -1,9 +1,7 @@
 .header {
     display: flex;
     justify-content: space-between;
-    align-items:first baseline;
-    margin-left: 6.5rem;
-    margin-right: 6.5rem;
+    align-items: center;
 }
 
 .headerText {
@@ -29,7 +27,7 @@
     }
 }
 
-.nav .list {
+.list {
     display: flex;
     flex-direction: row;
 }
@@ -41,9 +39,66 @@
     padding: .3em 1.3em .3em 1.3em;
 }
 
-.nav .list a:hover{
+.list a:hover{
     color: var(--color-white);
     background-color: var(--color-accent);
     border-radius: 1.4em;
     transition: background-color .4s;
+}
+
+.mobileBtn {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .headerText {
+        font-size: 2rem;
+    }
+
+    .list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        bottom: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--color-white);
+        z-index: 10;
+        transition: left .25s ease-in;
+        margin-top: 0px;
+        padding: 0px;
+    }
+
+    .active  {
+        display: flex;
+        left: 0px;
+    }
+
+    .list a {
+        font-size: 2rem;
+    }
+
+    .mobileBtn {
+        display: block;
+        font-size: 1.5rem;
+        color: var(--color-secondary);
+        margin: 1rem;
+        z-index: 11;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        justify-content: space-around;
+    }
 }

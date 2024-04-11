@@ -5,16 +5,16 @@
     padding: 1rem;
     justify-content: center;
     align-items: center;
-    flex-grow: 3;
+    flex: 1;
 }
+
 .list {
     display: flex;
-    flex-direction: row;
-    gap: .2rem;
-    justify-content: center;
+    flex-direction: column;
+    gap: .3rem;
     flex-wrap: wrap;
-    margin: 0px;
-    padding: 0px;
+    margin-left: 0px;
+    padding-left: 0px;
 }
 
 .listContainer .loadMore {
@@ -27,4 +27,23 @@
 .disabled {
     opacity: .5;
     pointer-events: none;
+}
+
+.filterButton {
+    display: block;
+}
+
+.sortAndFilter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media screen and (min-width: 768px) {
+    .filterButton {
+        display: none;
+    }
+    .list {
+        flex-direction: row;
+    }
 }

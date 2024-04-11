@@ -4,9 +4,16 @@ export type PageError = {
     status: number;
     message: string;
 }
+type RouteError = {
+    status: number;
+    data: {
+        message: string;
+    }
 
+}
 const ErrorPage = () => {
-    const error = useRouteError();
+
+    const error = useRouteError() as RouteError;
     let title = 'An error occurred!';
     let message = 'Something went wrong!';
 

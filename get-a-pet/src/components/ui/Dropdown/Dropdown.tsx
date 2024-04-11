@@ -1,7 +1,8 @@
 import DropdownItem from './DropdownItem';
 import DropdownSearch from './DropdownSearch';
-import { useEffect, useRef, useState } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import classes from './Dropdown.module.css'
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
 export type DropdownOption = {
     label: string;
@@ -18,9 +19,10 @@ type DropdownProps = {
     multi?: boolean;
     disabled?: boolean;
     closeOnSelect?: boolean;
+    icon?: ReactNode;
 }
 
-const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = false, value, multi = false, disabled = false, closeOnSelect }: DropdownProps) => {
+const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = false, value, multi = false, disabled = false, closeOnSelect, icon }: DropdownProps) => {
     const DEFAULT_DROPDOWN_OPTION: DropdownOption[] = [{ label: selectLabel, value: '' }];
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState<DropdownOption[]>(DEFAULT_DROPDOWN_OPTION);
@@ -118,7 +120,7 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = false, val
     return (
         <div tabIndex={0} className={disabled ? `${classes.dropdown} ${classes.disabled}` : classes.dropdown} onClick={handleOpen} onBlur={handleBlur} ref={listRef}>
             <span className={classes.value}>{spreadValues()}</span>
-            <div className={classes.caret}></div>
+            {icon || (isOpen ? <FaCaretUp /> : <FaCaretDown />)}
             <input type="hidden" name={name} value={value} />
             <ul className={`${classes.dropdownValues} ${isOpen ? classes.show : null}`}>
                 {hasSearch && <DropdownSearch handleFilter={handleFilter} handleSubmitSearch={handleSubmitSearch} value={searchValue} />}

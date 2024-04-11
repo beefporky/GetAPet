@@ -2,7 +2,7 @@
     position: relative;
     border: 0.07em solid var(--color-secondary);
     min-height: 1.5em;
-    width: 20em;
+    width: 100%;
     display: flex;
     align-items: center;
     padding: .5em;
@@ -20,7 +20,6 @@
     box-shadow: .07em .07em .07em .07em var(--color-secondary);
     transition: box-shadow .3s;
 }
-
 
 .value {
     flex-grow: 1;
@@ -49,7 +48,6 @@
     flex-direction: column;
 }
 
-
 .caret {
     translate: 0 25%;
     border: .25em solid transparent;
@@ -60,4 +58,10 @@
 .disabled {
     pointer-events: none;
     opacity: .5;
+}
+
+@media screen and (min-width: 768px) {
+    .dropdown {
+        width: 20em;
+    }
 }

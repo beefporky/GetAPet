@@ -1,14 +1,25 @@
+.filtersAndList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: left;
+}
+
 .animals {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
+    flex: 1;
 }
 
-.filtersAndList {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: left;
+
+@media screen and (min-width: 768px) {
+    .filtersAndList {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: left;
+    }
 }
+
+

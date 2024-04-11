@@ -1,21 +1,23 @@
-.item {
-    /* border: .2em solid var(--color-secondary); */
+.listItem {
     display: flex;
+    flex: 1 0 15rem;
     flex-direction: row;
-    width: 600px;
+    width: 600px; 
     height: 300px;
     border-radius: var(--default-border-radius);
 }
 
-.item img {
+.listItem img {
     flex: 1;
-    width: 300px;
+    width: 15rem;
+    min-width: 15rem;
+    max-width: 15rem;
     object-fit: cover;
     border-top-left-radius: var(--default-border-radius);
     border-bottom-left-radius: var(--default-border-radius);
 }
 
-.item:hover {
+.listItem:hover {
     border-color: var(--color-secondary);
     cursor: pointer;
     border-width: .1em;
@@ -40,6 +42,7 @@
 .itemDetails p {
     margin-top: 0px;
     margin-bottom: 0px;
+    font-size: 1rem;
 }
 
 .itemDetails p,h3 {
@@ -47,10 +50,76 @@
     margin-bottom: 0px;
 }
 
+.itemDetails h3 {
+    font-size: 1.2rem;
+}
 .itemDetails .text {
     margin: 2rem 3rem;
 }
 
 .itemDetails .text .description {
     font-style: italic;
+}
+
+@media screen and (max-width: 768px) {
+    .listItem {
+        display: flex;
+        flex-direction: column;
+        max-width: 40%; 
+        height: 100%;
+        border-radius: var(--default-border-radius);
+        flex: 1 0 50%;
+        margin: auto;
+        justify-content: stretch;
+        align-items: center;
+    }
+    
+    .listItem img {
+        flex: 1;
+        margin: auto;
+        width: 100%;
+        max-width: 300px;
+        max-height: 300px;
+        border-radius: var(--default-border-radius) var(--default-border-radius) 0 0;
+    }
+    
+    .itemDetails {
+        flex: 1;
+        margin: auto;
+        width: 100%;
+        border-radius: 0 0 var(--default-border-radius) var(--default-border-radius);
+
+    }
+    
+    .itemDetails p {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-size: 1rem;
+    }
+    
+    .itemDetails p,h3 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    
+    .itemDetails h3 {
+        font-size: 1.3rem;
+    }
+    .itemDetails .text {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .itemDetails .animalType {
+        visibility: hidden;
+    }
+    
+    .itemDetails .text .description {
+        font-style: italic;
+    }
+    
 }

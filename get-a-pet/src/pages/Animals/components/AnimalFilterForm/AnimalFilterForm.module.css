@@ -1,20 +1,69 @@
 .filters {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    margin-bottom: 1rem;
-    margin-left: 1rem;
-    border-radius: var(--default-border-radius);
-    border-color: var(--color-secondary);
-    width: 20vw;
+    justify-content: center;
+}
+
+.filterLegend {
+    display: block;
+}
+
+.filterForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 @media screen and (max-width: 768px) {
     .filters {
-        width: 100%;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        bottom: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 11;
+        transition: left .25s ease-in;
+        background-color: var(--color-white);
+        border: none;
+    }
+    .filterLegend {
+        display: none;
+    }
+
+    .active  {
+        display: flex;
+        left: 0px;
+    }
+} 
+
+@media screen and (min-width: 1024px) {
+    .filters {
+        position: block;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+        border-radius: var(--default-border-radius);
+        border-color: var(--color-secondary);
+        width: 20vw;
+        left: 0px;
+    }
+    
+    .filterContainer {
+        flex:.4
+    }
+    .resultsToggle {
+        display: none;
     }
 }
 
-.aside {
-    flex-grow:1
-}
+
+/* @media screen and (min-width: 768px) {
+    .filterContainer {
+        display: none;
+    }
+} */

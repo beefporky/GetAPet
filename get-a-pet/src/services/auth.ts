@@ -11,7 +11,15 @@ export async function authenticate():Promise<TokenType> {
     const existingToken = localStorage.getItem('token');
     const tokenExpiration = localStorage.getItem('expiration')
     const expiresIn = localStorage.getItem('expires_in');
-    if (existingToken && tokenExpiration && new Date(tokenExpiration) > new Date()) { 
+    const newDate = new Date();
+    console.log(existingToken);
+    console.log(expiresIn);
+    console.log(tokenExpiration);
+    console.log(tokenExpiration && (new Date(tokenExpiration)).toString())
+    console.log(newDate.toString());
+    console.log(tokenExpiration && (new Date(tokenExpiration)).toISOString())
+    console.log(newDate.toISOString());
+    if (existingToken && tokenExpiration && new Date(tokenExpiration) > newDate) { 
         return Promise.resolve({
             token_type: 'Bearer',
             expires_in: parseInt(expiresIn!),

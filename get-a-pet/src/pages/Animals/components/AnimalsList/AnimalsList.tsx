@@ -6,15 +6,18 @@ import Button from "../../../../components/ui/Button";
 import { useNavigation, useSubmit } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Dropdown, { DropdownOption } from "../../../../components/ui/Dropdown/Dropdown";
+import { MdOutlineSort } from "react-icons/md";
+import { FaFilter } from "react-icons/fa";
 
 type AnimalsListProps = {
     filterFormData: object;
+    toggleFilterForm: () => void;
 }
 
 const DEFAULT_SORT = 'recent';
 const DEFAULT_SORT_LABEL = 'Newest Addition';
 
-const AnimalsList = ({ filterFormData }: AnimalsListProps) => {
+const AnimalsList = ({ filterFormData, toggleFilterForm }: AnimalsListProps) => {
     const { animals, pagination } = useAnimals();
     const nextPage = pagination.current_page + 1;
     const { state } = useNavigation();
@@ -40,8 +43,9 @@ const AnimalsList = ({ filterFormData }: AnimalsListProps) => {
     }
     return (
         <div className={classes.listContainer}>
-            <div>
-                <Dropdown name="Sort" options={sortOptions} selectLabel={DEFAULT_SORT_LABEL} value={sortValue} closeOnSelect onChange={handleSortChange}></Dropdown>
+            <div className={classes.sortAndFilter}>
+                <Button className={classes.filterButton} textOnly={false} icon={<FaFilter />} onClick={toggleFilterForm}>Filters</Button>
+                <Dropdown name="Sort" options={sortOptions} selectLabel={DEFAULT_SORT_LABEL} value={sortValue} closeOnSelect onChange={handleSortChange} icon={<MdOutlineSort />}></Dropdown>
             </div>
             <ul className={state === 'loading' ? `${classes.list} ${classes.disabled}` : classes.list}>
                 {animals.map((animal: Animal) => <AnimalItem key={animal.id} animal={animal as Animal} />)}
