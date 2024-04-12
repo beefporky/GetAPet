@@ -21,10 +21,17 @@ export function hasToken() {
 }
 
 export function isTokenValid(pathname: string) {
-    // TODO: add expiration check here to fix login issue
-    if (!hasToken()) {
-        localStorage.setItem('prevPath', pathname);
+    const existingToken = localStorage.getItem('token');
+    const tokenExpiration = localStorage.getItem('expiration')
+    const newDate = new Date();
+    if (existingToken && tokenExpiration && new Date(tokenExpiration) > newDate) {  
         return true;
     }
-    return false;
+    else {
+        debugger
+        if (pathname !== '/login') {
+            localStorage.setItem('prevPath', pathname);
+        }
+        return false;
+    }
 }

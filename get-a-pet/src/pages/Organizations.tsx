@@ -1,8 +1,10 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
 
 const OrganizationsPage = () => {
     return (
-        <div>OrganizationsPage</div>
+        <div>OrganizationsPage
+            <Link to="/organizations/1234">Go to test</Link>
+        </div>
     )
 }
 

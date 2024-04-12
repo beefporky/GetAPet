@@ -98,7 +98,13 @@
 }
 
 @media screen and (min-width: 768px) {
-    .header {
-        justify-content: space-around;
+    .spacer {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .headerText {
+        margin-left: 55px;
     }
 }

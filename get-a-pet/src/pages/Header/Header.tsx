@@ -13,15 +13,17 @@ const Header = () => {
     const links = [{
         name: 'Home',
         link: '/',
-        isNav: true
+        isNav: true,
+        end: true
     }, {
         name: 'Animals',
         link: '/animals',
-        isNav: true
+        isNav: true,
+        end: false
     }, {
         name: 'Organizations',
         link: '/organizations',
-        isNav: true
+        end: false
     }];
 
     function handleLinkClick() {
@@ -39,11 +41,11 @@ const Header = () => {
             <nav className={classes.nav}>
                 <ul className={menuActive ? [classes.list, classes.active].join(' ') : classes.list}>
                     {
-                        links.map(link => <li><AppLink isNav={link.isNav} to={link.link} onClick={handleLinkClick}>{link.name}</AppLink></li>)
+                        links.map(link => <li key={link.link}><AppLink isNav={link.isNav} to={link.link} onClick={handleLinkClick} end={link.end}>{link.name}</AppLink></li>)
                     }
                 </ul>
             </nav>
-            <div></div>
+            <div className={classes.spacer}></div>
         </header >
     )
 }

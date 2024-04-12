@@ -15,7 +15,8 @@ type AppLinkProps = AppNavLinkType | AppLinkType;
 
 const AppLink = ({ children, ...props }: AppLinkProps) => {
     if ("isNav" in props && props.isNav) {
-        return <NavLink {...props} className={({ isActive }) => isActive && props.isNav ? classes.active : undefined} to={props.to} end>{children}</NavLink>
+        const { isNav, ...validProps } = props;
+        return <NavLink {...validProps} className={({ isActive }) => isActive && isNav ? classes.active : undefined} to={props.to} end={props.end}>{children}</NavLink>
     } else {
         return <Link to={props.to} >{children}</Link>
     }

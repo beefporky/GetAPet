@@ -5,6 +5,7 @@ import { authenticate } from '../services/auth'
 import AnimalsContextProvider from '../store/animals-context';
 import Modal from '../components/ui/Modal/Modal';
 import ModalContextProvider from '../components/ui/Modal/modal-context';
+import { isTokenValid } from '../utils/auth';
 
 const Root = () => {
     return (
@@ -14,15 +15,23 @@ const Root = () => {
                 <Outlet />
                 <Modal />
             </ModalContextProvider>
-
         </AnimalsContextProvider>
     )
 }
 
 export default Root
 
-export function loader() {
-    if (!localStorage.getItem('token')) {
+type Request = {
+    request: {
+        url: string;
+    }
+}
+
+export function loader({ request }: Request) {
+    const newUrl = new URL(request.url);
+    const pathname = newUrl.pathname + newUrl.search;
+    debugger
+    if (!isTokenValid(pathname)) {
         return redirect('/login');
     }
     return defer({

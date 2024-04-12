@@ -1,10 +1,11 @@
 import { useAnimals } from '../../../../store/animals-context'
 import classes from './AnimalFilterForm.module.css'
-import { Form, useNavigation, useSubmit } from 'react-router-dom';
+import { Form, useNavigation, useSearchParams, useSubmit } from 'react-router-dom';
 import { DEFAULT_ANIMAL_AGE, DEFAULT_ANIMAL_GENDER, DEFAULT_ANIMAL_SIZE } from '../../../../utils/constants';
 import Dropdown from '../../../../components/ui/Dropdown/Dropdown';
 import { useEffect, useRef, useState } from 'react';
 import Button from '../../../../components/ui/Button';
+import useCustomEffect from '../../../../hooks/useCustomEffect';
 
 type AnimalFilterFormProps = {
     filterFormDataChange: (formData: object) => void;
@@ -13,28 +14,21 @@ type AnimalFilterFormProps = {
 }
 
 const AnimalFilterForm = ({ filterFormDataChange, isMobileFilterOpen, toggleFilterForm }: AnimalFilterFormProps) => {
+    const [searchParams] = useSearchParams();
+    // TODO: bind the search values to the dropdowns
+    const searchParamsObj = Object.fromEntries(searchParams.entries());
     const { animalTypes, breeds } = useAnimals();
     const submit = useSubmit();
     const formRef = useRef<HTMLFormElement>(null);
-    const [typeValue, setTypeValue] = useState('');
-    const [breedValue, setBreedValue] = useState('');
-    const [ageValue, setAgeValue] = useState('');
-    const [sizeValue, setSizeValue] = useState('');
-    const [genderValue, setGenderValue] = useState('');
+    const [typeValue, setTypeValue] = useState(searchParamsObj.type || '');
+    const [breedValue, setBreedValue] = useState(searchParamsObj.breed || '');
+    const [ageValue, setAgeValue] = useState(searchParamsObj.age || '');
+    const [sizeValue, setSizeValue] = useState(searchParamsObj.size || '');
+    const [genderValue, setGenderValue] = useState(searchParamsObj.gender || '');
     const { state } = useNavigation();
     const [breedDisabled, setBreedDisabled] = useState(false);
 
-    function onFilterChange(event: React.ChangeEvent<HTMLFormElement>) {
-        const target = event.nativeEvent.target as HTMLElement;
-        if (!target.className.includes('search')) {
-            const formData = new FormData(event.currentTarget);
-            const data = Object.fromEntries(formData);
-            const dataWithPage = { ...data, page: 1 };
-            submit(dataWithPage);
-        }
-    }
-
-    useEffect(() => {
+    useCustomEffect(() => {
         handleSubmit();
     }, [typeValue, breedValue, ageValue, sizeValue, genderValue]);
 
@@ -45,6 +39,16 @@ const AnimalFilterForm = ({ filterFormDataChange, isMobileFilterOpen, toggleFilt
             setBreedDisabled(false);
         }
     }, [typeValue, state]);
+
+    function onFilterChange(event: React.ChangeEvent<HTMLFormElement>) {
+        const target = event.nativeEvent.target as HTMLElement;
+        if (!target.className.includes('search')) {
+            const formData = new FormData(event.currentTarget);
+            const data = Object.fromEntries(formData);
+            const dataWithPage = { ...data, page: 1 };
+            submit(dataWithPage);
+        }
+    }
 
     function handleSubmit() {
         const formData = new FormData(formRef.current!);

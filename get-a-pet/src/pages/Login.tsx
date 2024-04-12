@@ -1,6 +1,6 @@
-import { defer, useLoaderData, useNavigate } from "react-router-dom"
+import { defer, redirect, useLoaderData, useNavigate } from "react-router-dom"
 import { TokenType, authenticate } from "../services/auth"
-import { hasToken } from "../utils/auth"
+import { hasToken, isTokenValid } from "../utils/auth"
 import { useAuth } from "../store/auth-context"
 import { useEffect } from "react"
 import Loading from "../components/ui/Loading/Loading"
@@ -32,7 +32,12 @@ const Login = () => {
 
 export default Login
 
-export function loader() {
+export function loader({ request }) {
+    const newUrl = new URL(request.url);
+    const pathname = newUrl.pathname + newUrl.search;
+    if (isTokenValid(pathname)) {
+        return redirect('/');
+    }
     return defer({
         token: authenticate()
     })

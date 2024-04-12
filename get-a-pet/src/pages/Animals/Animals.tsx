@@ -18,7 +18,7 @@ const AnimalsPage = () => {
     const { replaceAnimals, replacePagination, appendAnimals, replaceAnimalTypes, animalTypes, updateBreeds, pagination } = useAnimals();
     const [filterFormData, setFilterFormData] = useState<object>({});
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-
+    // TODO: refactor useEffect
     useEffect(() => {
         animals.then((responseAnimals: { animals: Animal[], pagination: Pagination }) => {
             if (responseAnimals.pagination.current_page > pagination.current_page) {
@@ -79,8 +79,8 @@ type Request = {
 export async function loader({ request }: Request) {
     const newUrl = new URL(request.url);
     const filters = Object.fromEntries(newUrl.searchParams.entries());
-    const pathname = newUrl.pathname;
-    if (isTokenValid(pathname)) {
+    const pathname = newUrl.pathname + newUrl.search;
+    if (!isTokenValid(pathname)) {
         return redirect('/login');
     }
     return defer({

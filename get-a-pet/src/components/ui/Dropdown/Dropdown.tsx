@@ -3,6 +3,7 @@ import DropdownSearch from './DropdownSearch';
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import classes from './Dropdown.module.css'
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import useCustomEffect from '../../../hooks/useCustomEffect';
 
 export type DropdownOption = {
     label: string;
@@ -21,7 +22,6 @@ type DropdownProps = {
     closeOnSelect?: boolean;
     icon?: ReactNode;
 }
-
 const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = false, value, multi = false, disabled = false, closeOnSelect, icon }: DropdownProps) => {
     const DEFAULT_DROPDOWN_OPTION: DropdownOption[] = [{ label: selectLabel, value: '' }];
     const [isOpen, setIsOpen] = useState(false);
@@ -32,12 +32,12 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = false, val
     const [searchValue, setSearchValue] = useState('');
     const [itemsSelected, setItemsSelected] = useState<DropdownOption[]>([{ label: selectLabel, value: '' }]);
 
-    useEffect(() => {
+    useCustomEffect(() => {
         handleSubmitSearch();
         const values = itemsSelected.map((item) => item.value)
         onChange && onChange(values.join(','));
         resetSearch();
-    }, [selectedValue]);
+    }, [JSON.stringify(selectedValue)]);
 
     function handleOpen(event: React.MouseEvent<HTMLDivElement>) {
         const target = event.nativeEvent.target as HTMLElement;
@@ -95,6 +95,7 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = false, val
     }
 
     function handleSubmitSearch(event?: React.MouseEvent<HTMLButtonElement>) {
+        debugger
         if (event) {
             event.preventDefault();
         }

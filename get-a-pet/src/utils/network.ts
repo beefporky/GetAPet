@@ -8,7 +8,7 @@ type restTypes = "GET" | "PUT" | "POST" | "DELETE" | "PATCH";
 export const sendRequest = async (url: string, parameters?: object, method: restTypes = "GET") => {
     try {
         const token = getToken();
-        const requestConfig = {
+        const requestConfig: Record<string, string|object|boolean> = {
             method,
             headers: {
                 'Content-Type': 'application/json',

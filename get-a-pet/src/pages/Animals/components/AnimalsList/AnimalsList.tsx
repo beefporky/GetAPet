@@ -4,10 +4,11 @@ import { type Animal } from "../../../../models/Animal";
 import classes from './AnimalsList.module.css'
 import Button from "../../../../components/ui/Button";
 import { useNavigation, useSubmit } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Dropdown, { DropdownOption } from "../../../../components/ui/Dropdown/Dropdown";
 import { MdOutlineSort } from "react-icons/md";
 import { FaFilter } from "react-icons/fa";
+import useCustomEffect from "../../../../hooks/useCustomEffect";
 
 type AnimalsListProps = {
     filterFormData: object;
@@ -32,7 +33,7 @@ const AnimalsList = ({ filterFormData, toggleFilterForm }: AnimalsListProps) => 
     }];
     const submit = useSubmit();
 
-    useEffect(() => {
+    useCustomEffect(() => {
         const data = { ...filterFormData, sort: sortValue };
         submit(data);
 

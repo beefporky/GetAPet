@@ -12,11 +12,9 @@ type RouteError = {
 
 }
 const ErrorPage = () => {
-
     const error = useRouteError() as RouteError;
     let title = 'An error occurred!';
     let message = 'Something went wrong!';
-
     if (error.status === 500) {
         message = error.data.message;
     }

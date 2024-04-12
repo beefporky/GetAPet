@@ -31,3 +31,9 @@ export const getAnimalBreeds = async(type: string) => {
 
     return data;
 }
+
+export const getAnimal = async(id: number) => {
+    const data = await sendRequest(`/animals/${id}`);
+
+    return data;
+}
