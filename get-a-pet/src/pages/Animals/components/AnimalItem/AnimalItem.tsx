@@ -1,7 +1,7 @@
 import { type Animal } from "../../../../models/Animal"
 import classes from './AnimalItem.module.css'
 import animalPlaceHolder from '../../../../assets/animal-placeholder.png'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type AnimalItemProps = {
     animal: Animal;
@@ -15,16 +15,18 @@ const AnimalItem = ({ animal }: AnimalItemProps) => {
         navigate(`/animals/${animal.id}`);
     }
     return (
-        <li className={classes.listItem} onClick={handleItemClick}>
-            <img src={img} alt={animal.name} />
-            <div className={classes.itemDetails}>
-                <div className={classes.text}>
-                    <h3>{animal.name}</h3>
-                    <p className={classes.animalType}>{animal.type}</p>
-                    <p>{animal.breeds.primary}</p>
-                    <p>{animal.age}</p>
+        <li onClick={handleItemClick}>
+            <Link to={`/animals/${animal.id}`} className={classes.listItem}>
+                <img src={img} alt={animal.name} />
+                <div className={classes.itemDetails}>
+                    <div className={classes.text}>
+                        <h3>{animal.name}</h3>
+                        <p className={classes.animalType}>{animal.type}</p>
+                        <p>{animal.breeds.primary}</p>
+                        <p>{animal.age}</p>
+                    </div>
                 </div>
-            </div>
+            </Link>
         </li>
     )
 }

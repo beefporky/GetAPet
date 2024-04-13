@@ -19,12 +19,12 @@ const Login = () => {
                 setBearerToken(resolvedToken);
             });
         }
+        if (hasToken()) {
+            const prevPath = localStorage.getItem('prevPath');
+            localStorage.removeItem('prevPath');
+            navigate(prevPath || '/', { replace: true });
+        }
     }, [token]);
-    if (hasToken()) {
-        const prevPath = localStorage.getItem('prevPath');
-        localStorage.removeItem('prevPath');
-        navigate(prevPath || '/', { replace: true });
-    }
     return (
         <Loading />
     )
@@ -36,7 +36,8 @@ export function loader({ request }) {
     const newUrl = new URL(request.url);
     const pathname = newUrl.pathname + newUrl.search;
     if (isTokenValid(pathname)) {
-        return redirect('/');
+        const prevPath = localStorage.getItem('prevPath');
+        return redirect(prevPath || '/');
     }
     return defer({
         token: authenticate()

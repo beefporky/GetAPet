@@ -1,15 +1,18 @@
-import { Await, defer, useRouteLoaderData } from 'react-router-dom';
+import { Await, defer, redirect, useRouteLoaderData } from 'react-router-dom';
 import { getAnimal } from '../../services/animal';
-import classes from './AnimalDetails.module.css';
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import Loading from '../../components/ui/Loading/Loading';
+import AnimalContent from './AnimalContent';
+import { isTokenValid } from '../../utils/auth';
 
 const AnimalDetailsPage = () => {
     const { animal } = useRouteLoaderData('animal');
     return (
         <Suspense fallback={<Loading />}>
             <Await resolve={animal}>
-                {(animalsData) => JSON.stringify(animalsData)}
+                {(animalsData) => {
+                    return <AnimalContent animal={animalsData.animal} />
+                }}
             </Await>
         </Suspense>
     )
@@ -20,9 +23,20 @@ export default AnimalDetailsPage
 type ParamsType = {
     params: {
         animalId: number;
+
+    }
+    request: {
+        url: string;
     }
 }
-export async function loader({ params }: ParamsType) {
+
+export async function loader({ request, params }: ParamsType) {
+    const newUrl = new URL(request.url);
+    const pathname = newUrl.pathname + newUrl.search;
+    debugger
+    if (!isTokenValid(pathname)) {
+        return redirect('/login');
+    }
     return defer({
         animal: getAnimal(params.animalId)
     });

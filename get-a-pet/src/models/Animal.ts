@@ -110,16 +110,12 @@ export type Breed = {
     unknown: boolean;
 }
 
-export type Animal = {
-    id: string;
-    name: string;
-    type: string;
-    species: string;
-    url: string;
-    breeds: Breed;
-    description: string;
-    age: string;
-    photos: Photo[];
+export type AnimalAttribute = {
+    spayed_neutered: boolean;
+    house_trained: boolean;
+    declawed: boolean;
+    special_needs: boolean;
+    shots_current: boolean;
 }
 
 export type AnimalType = {
@@ -150,4 +146,51 @@ export type AnimalBreeds = {
             "href": string;
         }
     }
+}
+
+export type AnimalEnvironment = {
+    "children": boolean;
+    "dogs": boolean;
+    "cats": boolean;
+}
+
+export type AnimalContact = {
+    email: string;
+    phone: string;
+    address: {
+        address1: string;
+        address2: string;
+        city: string;
+        state: string;
+        postcode: string;
+        country: string;
+    }
+}
+
+export type AnimalColor = {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+}
+
+export type Animal = {
+    id: string;
+    name: string;
+    type: string;
+    species: string;
+    url: string;
+    breeds: Breed;
+    description: string;
+    age: string;
+    photos: Photo[];
+    size: string;
+    coat: string;
+    attributes: AnimalAttribute;
+    environment: AnimalEnvironment,
+    tags: string[];
+    videos: string[];
+    status: string;
+    contact: AnimalContact;
+    gender: string;
+    colors: AnimalColor;
 }
