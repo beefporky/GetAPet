@@ -28,7 +28,6 @@ export function isTokenValid(pathname: string) {
         return true;
     }
     else {
-        debugger
         if (pathname !== '/login') {
             localStorage.setItem('prevPath', pathname);
         }

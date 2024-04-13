@@ -95,7 +95,6 @@ const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = false, val
     }
 
     function handleSubmitSearch(event?: React.MouseEvent<HTMLButtonElement>) {
-        debugger
         if (event) {
             event.preventDefault();
         }

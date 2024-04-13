@@ -3,7 +3,7 @@ import AnimalItem from "../AnimalItem/AnimalItem";
 import { type Animal } from "../../../../models/Animal";
 import classes from './AnimalsList.module.css'
 import Button from "../../../../components/ui/Button";
-import { useNavigation, useSubmit } from "react-router-dom";
+import { useNavigation, useSearchParams, useSubmit } from "react-router-dom";
 import { useState } from "react";
 import Dropdown, { DropdownOption } from "../../../../components/ui/Dropdown/Dropdown";
 import { MdOutlineSort } from "react-icons/md";
@@ -23,7 +23,10 @@ const AnimalsList = ({ filterFormData, toggleFilterForm }: AnimalsListProps) => 
     const nextPage = pagination.current_page + 1;
     const { state } = useNavigation();
     const [sortValue, setSortValue] = useState(DEFAULT_SORT);
-    const loadMoreUrl = `/animals?sort=${sortValue}&page=${nextPage}`
+    const [searchParams] = useSearchParams();
+    searchParams.delete('sort')
+    searchParams.delete('page')
+    const loadMoreUrl = `/animals?${searchParams.toString()}&sort=${sortValue}&page=${nextPage}`
     const sortOptions: DropdownOption[] = [{
         label: 'Newest Addition',
         value: 'recent',

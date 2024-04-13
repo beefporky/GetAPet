@@ -30,7 +30,6 @@ type Request = {
 export function loader({ request }: Request) {
     const newUrl = new URL(request.url);
     const pathname = newUrl.pathname + newUrl.search;
-    debugger
     if (!isTokenValid(pathname)) {
         return redirect('/login');
     }

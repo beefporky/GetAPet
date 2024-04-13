@@ -25,7 +25,7 @@ const AnimalContent = ({ animal }: AnimalContentProps) => {
             thumbnail: animalPlaceHolder
         }]
     }
-
+    // TODO: add video support. This id has a video provided 71334058
     return (
         <section className={classes.animalContent}>
             <ImageGallery items={photos} />

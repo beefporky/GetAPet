@@ -19,6 +19,7 @@ const AnimalsPage = () => {
     const [filterFormData, setFilterFormData] = useState<object>({});
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
     // TODO: refactor useEffect
+    // TODO: apply responsive designs on portrait mode only
     useEffect(() => {
         animals.then((responseAnimals: { animals: Animal[], pagination: Pagination }) => {
             if (responseAnimals.pagination.current_page > pagination.current_page) {
@@ -75,7 +76,6 @@ type Request = {
     }
 }
 
-// TODO: make sure router url works when pasted in another incognito browser
 export async function loader({ request }: Request) {
     const newUrl = new URL(request.url);
     const filters = Object.fromEntries(newUrl.searchParams.entries());
