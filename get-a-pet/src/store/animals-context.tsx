@@ -65,7 +65,11 @@ const AnimalsContextProvider = ({ children }: AnimalsProps) => {
     }
 
     function appendAnimals(animals: Animal[]) {
-        setAnimals(prevAnimals => [...prevAnimals, ...animals]);
+        setAnimals(prevAnimals => {
+            const animalIds = prevAnimals.map((animal: Animal) => animal.id);
+            const uniqueAnimals = animals.filter((animal: Animal) => !animalIds.includes(animal.id));
+            return [...prevAnimals, ...uniqueAnimals]
+        });
     }
 
     function replacePagination(pagination: Pagination) {
