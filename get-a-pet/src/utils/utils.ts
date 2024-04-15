@@ -1,3 +1,4 @@
+import {QueryClient} from '@tanstack/react-query';
 export const convertObjectToStringQuery = (filters: object) => {
     const filter = Object.entries(filters).map(([key, value]) => {
         return `${key}=${encodeURIComponent(value)}`;
@@ -21,3 +22,5 @@ export const extractVideoSrcFromHtmlEmbed = (embed: string) => {
         return [(div.firstChild as HTMLIFrameElement).src, 'iframe'];
     }
 }
+
+export const queryClient = new QueryClient();

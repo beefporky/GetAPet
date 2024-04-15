@@ -1,5 +1,4 @@
 import { Suspense, useEffect, useState } from "react";
-import { getAnimalBreeds, getAnimalTypes, getAnimals } from "../../services/animal";
 import { Await, defer, redirect, useLoaderData } from "react-router-dom";
 import Loading from "../../components/ui/Loading/Loading";
 import { useAnimals } from "../../store/animals-context";
@@ -10,6 +9,8 @@ import AnimalSearchBar from "./components/AnimalSearchBar/AnimalSearchBar";
 import classes from './Animals.module.css'
 import { isTokenValid } from "../../utils/auth";
 import AnimalFilterForm from "./components/AnimalFilterForm/AnimalFilterForm";
+import { queryClient } from "../../utils/utils";
+import { animalsQuery, animalBreedsQuery, animalTypesQuery } from "../../store/animals-query";
 
 type LoaderTypes = { animals: Promise<{ animals: Animal[], pagination: Pagination }>, animalTypes: Promise<{ types: AnimalType[] }>, animalBreeds: Promise<{ breeds: AnimalBreeds[] }> }
 
@@ -20,28 +21,35 @@ const AnimalsPage = () => {
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
     // TODO: refactor useEffect
     useEffect(() => {
-        animals.then((responseAnimals: { animals: Animal[], pagination: Pagination }) => {
-            if (responseAnimals.pagination.current_page > pagination.current_page) {
-                appendAnimals(responseAnimals.animals);
-            } else {
-                replaceAnimals(responseAnimals.animals);
-            }
-            replacePagination(responseAnimals.pagination);
-        });
+        if (animals.then) {
+            animals.then((responseAnimals: { animals: Animal[], pagination: Pagination }) => {
+                if (responseAnimals.pagination.current_page > pagination.current_page) {
+                    appendAnimals(responseAnimals.animals);
+                } else {
+                    replaceAnimals(responseAnimals.animals);
+                }
+                replacePagination(responseAnimals.pagination);
+            });
+        }
     }, [animals]);
 
+
     useEffect(() => {
-        if (animalTypes.length === 0) {
-            animalTypesPromise.then((responseAnimalTypes: { types: AnimalType[] }) => {
-                replaceAnimalTypes(responseAnimalTypes.types);
-            });
+        if (animalTypesPromise.then) {
+            if (animalTypes.length === 0) {
+                animalTypesPromise.then((responseAnimalTypes: { types: AnimalType[] }) => {
+                    replaceAnimalTypes(responseAnimalTypes.types);
+                });
+            }
         }
     }, [animalTypes]);
 
     useEffect(() => {
-        animalBreeds.then((responseBreeds: { breeds: AnimalBreeds[] }) => {
-            updateBreeds(responseBreeds.breeds);
-        });
+        if (animalBreeds.then) {
+            animalBreeds.then((responseBreeds: { breeds: AnimalBreeds[] }) => {
+                updateBreeds(responseBreeds.breeds);
+            });
+        }
     }, [animalBreeds]);
 
     function filterFormDataChange(formData: object) {
@@ -82,10 +90,13 @@ export async function loader({ request }: Request) {
     if (!isTokenValid(pathname)) {
         return redirect('/login');
     }
+    const animalsQueryObj = animalsQuery(filters);
+    const animalTypesQueryObj = animalTypesQuery();
+    const animalBreedsQueryObj = animalBreedsQuery(filters.type || 'dog');
+
     return defer({
-        animals: getAnimals(filters),
-        animalTypes: getAnimalTypes(),
-        animalBreeds: getAnimalBreeds(filters.type || 'dog')
+        animals: queryClient.getQueryData(animalsQueryObj.queryKey) ?? queryClient.fetchQuery(animalsQueryObj),
+        animalTypes: queryClient.getQueryData(animalTypesQueryObj.queryKey) ?? queryClient.fetchQuery(animalTypesQueryObj),
+        animalBreeds: queryClient.getQueryData(animalBreedsQueryObj.queryKey) ?? queryClient.fetchQuery(animalBreedsQueryObj)
     });
 }
-

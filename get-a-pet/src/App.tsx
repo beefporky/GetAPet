@@ -8,15 +8,16 @@ import AuthContextProvider from './store/auth-context';
 import ErrorPage from './pages/Error/Error';
 import { loader as animalsLoader } from './pages/Animals/Animals';
 import Login, { loader as authLoader } from './pages/Login';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import TestPage from './pages/Test';
 import OrganizationsLayout from './pages/OrganizationsLayout';
 import AnimalsLayout from './layouts/Animals';
+import { queryClient } from './utils/utils';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-const queryClient = new QueryClient();
+
 // TODO: transfer to react query
 // TODO: create unit tests
-// TODO: transfer to redux
 const App = () => {
   const Router = createBrowserRouter([
     {
@@ -65,6 +66,7 @@ const App = () => {
       <AuthContextProvider>
         <RouterProvider router={Router} />
       </AuthContextProvider>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   )
 }
