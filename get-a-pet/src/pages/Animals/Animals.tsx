@@ -19,7 +19,6 @@ const AnimalsPage = () => {
     const [filterFormData, setFilterFormData] = useState<object>({});
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
     // TODO: refactor useEffect
-    // TODO: apply responsive designs on portrait mode only
     useEffect(() => {
         animals.then((responseAnimals: { animals: Animal[], pagination: Pagination }) => {
             if (responseAnimals.pagination.current_page > pagination.current_page) {

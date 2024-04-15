@@ -1,3 +1,4 @@
+/* backup animalitem */
 .listItem {
     display: flex;
     flex: 1 0 15rem;
@@ -53,6 +54,7 @@
 .itemDetails h3 {
     font-size: 1.2rem;
 }
+
 .itemDetails .text {
     margin: 2rem 3rem;
 }
@@ -62,10 +64,14 @@
 }
 
 @media screen and (max-width: 768px) {
+    .listItemContainer {
+        width: 40%
+    }
+    
     .listItem {
         display: flex;
         flex-direction: column;
-        max-width: 40%; 
+        max-width: 100%; 
         height: 100%;
         border-radius: var(--default-border-radius);
         flex: 1 0 50%;

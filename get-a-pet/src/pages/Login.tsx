@@ -20,6 +20,7 @@ const Login = () => {
             });
         }
         if (hasToken()) {
+            // TODO: fix detail level redirection
             const prevPath = localStorage.getItem('prevPath');
             localStorage.removeItem('prevPath');
             navigate(prevPath || '/', { replace: true });

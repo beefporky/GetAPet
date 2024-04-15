@@ -4,7 +4,6 @@ import HomePage from './pages/HomePage/HomePage';
 import AnimalsPage from './pages/Animals/Animals';
 import OrganizationsPage from './pages/Organizations';
 import AnimalDetailsPage, { loader as animalDetailsLoader } from './pages/AnimalDetails/AnimalDetails';
-import { loader as rootLoader } from './pages/Root';
 import AuthContextProvider from './store/auth-context';
 import ErrorPage from './pages/Error/Error';
 import { loader as animalsLoader } from './pages/Animals/Animals';
@@ -15,7 +14,7 @@ import OrganizationsLayout from './pages/OrganizationsLayout';
 import AnimalsLayout from './layouts/Animals';
 
 const queryClient = new QueryClient();
-// TODO: transfer to react
+// TODO: transfer to react query
 // TODO: create unit tests
 // TODO: transfer to redux
 const App = () => {
@@ -23,7 +22,6 @@ const App = () => {
     {
       path: '/',
       element: <Root />,
-      // loader: rootLoader,
       errorElement: <ErrorPage />,
       children: [{
         index: true,

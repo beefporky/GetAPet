@@ -1,9 +1,11 @@
 import { Animal } from "../../models/Animal";
 import { Photo } from '../../models/Animal';
 import animalPlaceHolder from '../../assets/animal-placeholder.png';
+import playIcon from '../../assets/play-icon.png';
 import classes from './AnimalDetails.module.css';
 import Chip from "../../components/ui/Chip/Chip";
 import ImageGallery from "react-image-gallery";
+import { extractVideoSrcFromHtmlEmbed } from "../../utils/utils";
 
 type AnimalContentProps = {
     animal: Animal;
@@ -16,19 +18,57 @@ const AnimalContent = ({ animal }: AnimalContentProps) => {
         photos = animalData.photos.map((photo: Photo) => {
             return {
                 original: photo.full,
-                thumbnail: photo.small
+                thumbnail: photo.small,
+                isPhoto: true
             }
         });
     } else {
         photos = [{
             original: animalPlaceHolder,
-            thumbnail: animalPlaceHolder
+            thumbnail: animalPlaceHolder,
+            isPhoto: true
         }]
     }
-    // TODO: add video support. This id has a video provided 71334058
+    if (animalData.videos.length > 0) {
+        const [vidSrc, vidType] = extractVideoSrcFromHtmlEmbed(animalData.videos[0].embed);
+        photos.push({
+            original: vidSrc,
+            thumbnail: playIcon,
+            isPhoto: false,
+            vidType
+        });
+    }
+
+    type MediaType = {
+        original: string;
+        thumbnail: string;
+        isPhoto: boolean;
+        vidType: string;
+    }
+    function renderMedia(item: MediaType) {
+        // error 71344110
+        // This id has a video provided 71334058
+        if (item.isPhoto) {
+            return (
+                <div className={classes.imageGalleryItem}>
+                    <img src={item.original} alt={animalData.name} />
+                </div>
+            )
+        } else {
+            return (
+                <div className={classes.imageGalleryItem}>
+                    {item.vidType === 'video' ? <video className={classes.embedVideo} controls>
+                        <source src={item.original} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video> : <iframe src={item.original} title={animalData.name} className={classes.embedVideo}></iframe>}
+                </div>
+            )
+        }
+    }
+
     return (
         <section className={classes.animalContent}>
-            <ImageGallery items={photos} />
+            <ImageGallery items={photos} showPlayButton={false} showFullscreenButton={false} renderItem={renderMedia} className={classes.imageGallery} />
             <div className={classes.divider}></div>
             <article className={classes.animalDetails}>
                 <h2>{animalData.name}</h2>

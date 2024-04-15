@@ -173,6 +173,10 @@ export type AnimalColor = {
     tertiary: string;
 }
 
+export type AnimalVideo = {
+    embed: string;
+}
+
 export type Animal = {
     id: string;
     name: string;
@@ -188,7 +192,7 @@ export type Animal = {
     attributes: AnimalAttribute;
     environment: AnimalEnvironment,
     tags: string[];
-    videos: string[];
+    videos: AnimalVideo[];
     status: string;
     contact: AnimalContact;
     gender: string;

@@ -15,7 +15,7 @@ const AnimalItem = ({ animal }: AnimalItemProps) => {
         navigate(`/animals/${animal.id}`);
     }
     return (
-        <li onClick={handleItemClick}>
+        <li onClick={handleItemClick} className={classes.listItemContainer}>
             <Link to={`/animals/${animal.id}`} className={classes.listItem}>
                 <img src={img} alt={animal.name} />
                 <div className={classes.itemDetails}>

@@ -8,8 +8,7 @@
 }
 
 .mainImage {
-    width: 70%;
-    flex: 3;
+    width: 90%;
 }
 
 .tagline {
@@ -24,7 +23,6 @@
 @media screen and (min-width: 768px) {
     .mainImage {
         width: 40%;
-        flex: 3;
     }
     .tagline {
         font-size: 5rem;
