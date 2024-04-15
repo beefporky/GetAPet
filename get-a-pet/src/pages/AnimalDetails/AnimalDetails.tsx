@@ -1,22 +1,22 @@
-import { Await, defer, redirect, useRouteLoaderData } from 'react-router-dom';
-import { Suspense } from 'react';
+import { defer, redirect, useParams } from 'react-router-dom';
 import Loading from '../../components/ui/Loading/Loading';
 import AnimalContent from './AnimalContent';
 import { isTokenValid } from '../../utils/auth';
 import { queryClient } from '../../utils/utils';
-import { getAnimalQuery } from '../../store/animals-query';
+import { animalDetailsQuery, useAnimalDetailQuery } from '../../store/animals-query';
 
 const AnimalDetailsPage = () => {
-    const { animal } = useRouteLoaderData('animal');
-    return (
-        <Suspense fallback={<Loading />}>
-            <Await resolve={animal}>
-                {(animalsData) => {
-                    return <AnimalContent animal={animalsData.animal} />
-                }}
-            </Await>
-        </Suspense>
-    )
+    const params = useParams<{ animalId: string }>(); // Specify the type of `animalId` as `string`
+    const { data: animalsData, isLoading, error } = useAnimalDetailQuery(Number(params.animalId)); // Convert `params.animalId` to `number`
+
+    if (isLoading) {
+        return <Loading />
+    }
+
+    if (error) {
+        throw (error);
+    }
+    return <AnimalContent animal={animalsData.animal} />
 }
 
 export default AnimalDetailsPage
@@ -34,7 +34,7 @@ type ParamsType = {
 export async function loader({ request, params }: ParamsType) {
     const newUrl = new URL(request.url);
     const pathname = newUrl.pathname + newUrl.search;
-    const query = getAnimalQuery(params.animalId);
+    const query = animalDetailsQuery(params.animalId);
     if (!isTokenValid(pathname)) {
         return redirect('/login');
     }

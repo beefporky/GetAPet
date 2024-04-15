@@ -15,8 +15,6 @@ import AnimalsLayout from './layouts/Animals';
 import { queryClient } from './utils/utils';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-
-// TODO: transfer to react query
 // TODO: create unit tests
 const App = () => {
   const Router = createBrowserRouter([

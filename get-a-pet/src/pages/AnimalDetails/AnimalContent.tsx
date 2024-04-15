@@ -11,6 +11,13 @@ type AnimalContentProps = {
     animal: Animal;
 }
 
+type MediaType = {
+    original: string;
+    thumbnail: string;
+    isPhoto: boolean;
+    vidType?: string;
+}
+
 const AnimalContent = ({ animal }: AnimalContentProps) => {
     const animalData = animal;
     let photos;
@@ -20,14 +27,14 @@ const AnimalContent = ({ animal }: AnimalContentProps) => {
                 original: photo.full,
                 thumbnail: photo.small,
                 isPhoto: true
-            }
+            } as MediaType
         });
     } else {
         photos = [{
             original: animalPlaceHolder,
             thumbnail: animalPlaceHolder,
             isPhoto: true
-        }]
+        } as MediaType]
     }
     if (animalData.videos.length > 0) {
         const [vidSrc, vidType] = extractVideoSrcFromHtmlEmbed(animalData.videos[0].embed);
@@ -36,15 +43,9 @@ const AnimalContent = ({ animal }: AnimalContentProps) => {
             thumbnail: playIcon,
             isPhoto: false,
             vidType
-        });
+        } as MediaType);
     }
 
-    type MediaType = {
-        original: string;
-        thumbnail: string;
-        isPhoto: boolean;
-        vidType: string;
-    }
     function renderMedia(item: MediaType) {
         // error 71344110
         // This id has a video provided 71334058

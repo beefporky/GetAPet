@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query"
 import { getAnimals, getAnimalTypes, getAnimalBreeds, getAnimal } from "../services/animal"
 
 export const animalsQuery = (filters: object) => {
@@ -19,9 +20,17 @@ export const animalBreedsQuery = (filters: string) => {
     }
 }
 
-export const getAnimalQuery = (id: number) => {
+export const animalDetailsQuery = (id: number) => {
     return {
-        queryKey: ['animal', id],
+        queryKey: ['animals', 'detail', id],
         queryFn: () => getAnimal(id)
     }
+}
+
+export const useAnimalsQuery = (filters: object) => {
+    return useQuery(animalsQuery(filters));
+}
+
+export const useAnimalDetailQuery = (id: number) => {
+    return useQuery(animalDetailsQuery(id));
 }

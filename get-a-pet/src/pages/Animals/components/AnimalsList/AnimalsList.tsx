@@ -9,6 +9,7 @@ import Dropdown, { DropdownOption } from "../../../../components/ui/Dropdown/Dro
 import { MdOutlineSort } from "react-icons/md";
 import { FaFilter } from "react-icons/fa";
 import useCustomEffect from "../../../../hooks/useCustomEffect";
+import { useAnimalsQuery } from "../../../../store/animals-query";
 
 type AnimalsListProps = {
     filterFormData: object;
@@ -19,14 +20,19 @@ const DEFAULT_SORT = 'recent';
 const DEFAULT_SORT_LABEL = 'Newest Addition';
 
 const AnimalsList = ({ filterFormData, toggleFilterForm }: AnimalsListProps) => {
+    const [searchParams] = useSearchParams();
+    // const { data: animalsData, error, isLoading } = useAnimalsQuery(Object.fromEntries(searchParams.entries()));
+    // const animals = animalsData?.animals ?? [];
+    // TODO: transfer to use react query instead of context api
+
     const { animals, pagination } = useAnimals();
     const nextPage = pagination.current_page + 1;
     const { state } = useNavigation();
     const [sortValue, setSortValue] = useState(DEFAULT_SORT);
-    const [searchParams] = useSearchParams();
     searchParams.delete('sort')
     searchParams.delete('page')
     const loadMoreUrl = `/animals?${searchParams.toString()}&sort=${sortValue}&page=${nextPage}`
+    // const loadMoreUrl = `/animals?${searchParams.toString()}&sort=${sortValue}&page=2`
     const sortOptions: DropdownOption[] = [{
         label: 'Newest Addition',
         value: 'recent',
