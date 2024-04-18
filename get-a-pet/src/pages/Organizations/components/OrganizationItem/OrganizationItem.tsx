@@ -8,7 +8,6 @@ type OrganizationItemProps = {
 }
 
 const OrganizationItem = ({ organization }: OrganizationItemProps) => {
-    console.log(organization);
     return (
         <Link to={`/organizations/${organization.id}`} className={classes.organizationItem}>
             <div className={classes.imageContainer}>
