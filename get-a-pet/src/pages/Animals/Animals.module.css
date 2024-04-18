@@ -13,7 +13,6 @@
     flex: 1;
 }
 
-
 @media screen and (min-width: 768px) {
     .filtersAndList {
         flex-direction: row;
@@ -23,4 +22,8 @@
     }
 }
 
-
+.sectionHeader {
+    font-size: 1.5rem;
+    color: var(--color-secondary);
+    margin: 20px;
+}

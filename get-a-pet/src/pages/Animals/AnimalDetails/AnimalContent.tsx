@@ -1,11 +1,11 @@
-import { Animal } from "../../models/Animal";
-import { Photo } from '../../models/Animal';
-import animalPlaceHolder from '../../assets/animal-placeholder.png';
-import playIcon from '../../assets/play-icon.png';
+import { Animal } from "../../../models/Animal";
+import { Photo } from '../../../models/Animal';
+import animalPlaceHolder from '../../../assets/animal-placeholder.png';
+import playIcon from '../../../assets/play-icon.png';
 import classes from './AnimalDetails.module.css';
-import Chip from "../../components/ui/Chip/Chip";
+import Chip from "../../../components/ui/Chip/Chip";
 import ImageGallery from "react-image-gallery";
-import { extractVideoSrcFromHtmlEmbed } from "../../utils/utils";
+import { extractVideoSrcFromHtmlEmbed } from "../../../utils/utils";
 
 type AnimalContentProps = {
     animal: Animal;

@@ -1,0 +1,14 @@
+.search {
+    width: 100%;
+}
+
+.search:hover {
+    border-color: var(--color-secondary);
+    box-shadow: 1px 1px 1px 1px var(--color-secondary)
+}
+
+.searchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

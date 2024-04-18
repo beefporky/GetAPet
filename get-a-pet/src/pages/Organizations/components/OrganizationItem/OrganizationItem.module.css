@@ -1,0 +1,30 @@
+.organizationItem {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--default-border-radius);
+    overflow: hidden;
+    width: 300px;
+    height: 100%;
+}
+
+.organizationItem img {
+    min-height: 300px;
+    width: 100%;
+}
+
+.detailsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 16px;
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    text-align: center;
+}
+
+.orgAddress p{
+    margin: 0px;
+}

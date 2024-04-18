@@ -1,6 +1,6 @@
 import DropdownItem from './DropdownItem';
 import DropdownSearch from './DropdownSearch';
-import { ReactNode, useEffect, useRef, useState } from 'react'
+import { ReactNode, useRef, useState } from 'react'
 import classes from './Dropdown.module.css'
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import useCustomEffect from '../../../hooks/useCustomEffect';
@@ -22,6 +22,7 @@ type DropdownProps = {
     closeOnSelect?: boolean;
     icon?: ReactNode;
 }
+
 const Dropdown = ({ options, name, selectLabel, onChange, hasSearch = false, value, multi = false, disabled = false, closeOnSelect, icon }: DropdownProps) => {
     const DEFAULT_DROPDOWN_OPTION: DropdownOption[] = [{ label: selectLabel, value: '' }];
     const [isOpen, setIsOpen] = useState(false);

@@ -6,6 +6,7 @@ import AnimalsContextProvider from '../store/animals-context';
 import Modal from '../components/ui/Modal/Modal';
 import ModalContextProvider from '../components/ui/Modal/modal-context';
 import { isTokenValid } from '../utils/auth';
+import { Request } from '../utils/network';
 
 const Root = () => {
     return (
@@ -20,12 +21,6 @@ const Root = () => {
 }
 
 export default Root
-
-type Request = {
-    request: {
-        url: string;
-    }
-}
 
 export function loader({ request }: Request) {
     const newUrl = new URL(request.url);

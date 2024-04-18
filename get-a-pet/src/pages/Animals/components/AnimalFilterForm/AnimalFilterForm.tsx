@@ -4,7 +4,7 @@ import { Form, useNavigation, useSearchParams, useSubmit } from 'react-router-do
 import { DEFAULT_ANIMAL_AGE, DEFAULT_ANIMAL_GENDER, DEFAULT_ANIMAL_SIZE } from '../../../../utils/constants';
 import Dropdown from '../../../../components/ui/Dropdown/Dropdown';
 import { useEffect, useRef, useState } from 'react';
-import Button from '../../../../components/ui/Button';
+import Button from '../../../../components/ui/Button/Button';
 import useCustomEffect from '../../../../hooks/useCustomEffect';
 
 type AnimalFilterFormProps = {

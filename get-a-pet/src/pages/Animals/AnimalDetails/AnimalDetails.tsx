@@ -1,9 +1,9 @@
 import { defer, redirect, useParams } from 'react-router-dom';
-import Loading from '../../components/ui/Loading/Loading';
+import Loading from '../../../components/ui/Loading/Loading';
 import AnimalContent from './AnimalContent';
-import { isTokenValid } from '../../utils/auth';
-import { queryClient } from '../../utils/utils';
-import { animalDetailsQuery, useAnimalDetailQuery } from '../../store/animals-query';
+import { isTokenValid } from '../../../utils/auth';
+import { queryClient } from '../../../utils/utils';
+import { animalDetailsQuery, useAnimalDetailQuery } from '../../../store/animals-query';
 
 const AnimalDetailsPage = () => {
     const params = useParams<{ animalId: string }>(); // Specify the type of `animalId` as `string`

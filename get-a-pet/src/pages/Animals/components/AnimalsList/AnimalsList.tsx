@@ -2,14 +2,13 @@ import { useAnimals } from "../../../../store/animals-context"
 import AnimalItem from "../AnimalItem/AnimalItem";
 import { type Animal } from "../../../../models/Animal";
 import classes from './AnimalsList.module.css'
-import Button from "../../../../components/ui/Button";
+import Button from "../../../../components/ui/Button/Button";
 import { useNavigation, useSearchParams, useSubmit } from "react-router-dom";
 import { useState } from "react";
 import Dropdown, { DropdownOption } from "../../../../components/ui/Dropdown/Dropdown";
 import { MdOutlineSort } from "react-icons/md";
 import { FaFilter } from "react-icons/fa";
 import useCustomEffect from "../../../../hooks/useCustomEffect";
-import { useAnimalsQuery } from "../../../../store/animals-query";
 
 type AnimalsListProps = {
     filterFormData: object;
@@ -21,10 +20,6 @@ const DEFAULT_SORT_LABEL = 'Newest Addition';
 
 const AnimalsList = ({ filterFormData, toggleFilterForm }: AnimalsListProps) => {
     const [searchParams] = useSearchParams();
-    // const { data: animalsData, error, isLoading } = useAnimalsQuery(Object.fromEntries(searchParams.entries()));
-    // const animals = animalsData?.animals ?? [];
-    // TODO: transfer to use react query instead of context api
-
     const { animals, pagination } = useAnimals();
     const nextPage = pagination.current_page + 1;
     const { state } = useNavigation();
@@ -32,7 +27,6 @@ const AnimalsList = ({ filterFormData, toggleFilterForm }: AnimalsListProps) => 
     searchParams.delete('sort')
     searchParams.delete('page')
     const loadMoreUrl = `/animals?${searchParams.toString()}&sort=${sortValue}&page=${nextPage}`
-    // const loadMoreUrl = `/animals?${searchParams.toString()}&sort=${sortValue}&page=2`
     const sortOptions: DropdownOption[] = [{
         label: 'Newest Addition',
         value: 'recent',
@@ -60,7 +54,7 @@ const AnimalsList = ({ filterFormData, toggleFilterForm }: AnimalsListProps) => 
             <ul className={state === 'loading' ? `${classes.list} ${classes.disabled}` : classes.list}>
                 {animals.map((animal: Animal) => <AnimalItem key={animal.id} animal={animal as Animal} />)}
             </ul>
-            {pagination.current_page < pagination.total_pages ? <Button textOnly={false} className={classes.loadMore} to={loadMoreUrl}>Load More</Button> : <p>No Results</p>}
+            {pagination.current_page < pagination.total_pages ? <Button textOnly={false} className={classes.loadMore} to={loadMoreUrl}>Load More</Button> : ''}
         </div>
     )
 }

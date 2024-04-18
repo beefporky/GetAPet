@@ -4,6 +4,7 @@ import { isTokenValid } from "../utils/auth"
 import { useAuth } from "../store/auth-context"
 import { useEffect } from "react"
 import Loading from "../components/ui/Loading/Loading"
+import { Request } from "../utils/network"
 
 type TokenData = {
     token: Promise<TokenType>;
@@ -35,7 +36,7 @@ const Login = () => {
 
 export default Login
 
-export function loader({ request }) {
+export function loader({ request }: Request) {
     const newUrl = new URL(request.url);
     const pathname = newUrl.pathname + newUrl.search;
     if (isTokenValid(pathname)) {

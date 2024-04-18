@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { defer, redirect, useLoaderData, useSearchParams } from "react-router-dom";
+import { defer, redirect, useAsyncValue, useLoaderData, useSearchParams } from "react-router-dom";
 import Loading from "../../components/ui/Loading/Loading";
 import AnimalsList from "./components/AnimalsList/AnimalsList";
 import AnimalSearchBar from "./components/AnimalSearchBar/AnimalSearchBar";
@@ -11,6 +11,7 @@ import { animalBreedsQuery, animalTypesQuery, useAnimalsQuery } from "../../stor
 import { Pagination, useAnimals } from "../../store/animals-context";
 import { AnimalBreeds, Animal, AnimalType } from "../../models/Animal";
 import { animalsQuery } from "../../store/animals-query";
+import { Request } from "../../utils/network";
 
 type LoaderTypes = { animals: Promise<{ animals: Animal[], pagination: Pagination }>, animalTypes: Promise<{ types: AnimalType[] }>, animalBreeds: Promise<{ breeds: AnimalBreeds[] }> }
 
@@ -22,6 +23,7 @@ const AnimalsPage = () => {
     const { replaceAnimals, replacePagination, appendAnimals, replaceAnimalTypes, animalTypes, updateBreeds, pagination } = useAnimals();
     const [filterFormData, setFilterFormData] = useState<object>({});
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+
     // TODO: refactor useEffect
     useEffect(() => {
         if (animals.then) {
@@ -54,6 +56,7 @@ const AnimalsPage = () => {
             });
         }
     }, [animalBreeds]);
+
     function filterFormDataChange(formData: object) {
         setFilterFormData(formData);
     }
@@ -69,6 +72,7 @@ const AnimalsPage = () => {
     }
 
     return <main className={classes.animals}>
+        <h3 className={classes.sectionHeader}>Animals</h3>
         <AnimalSearchBar />
         <div className={classes.filtersAndList}>
             <AnimalFilterForm filterFormDataChange={filterFormDataChange} isMobileFilterOpen={isMobileFilterOpen} toggleFilterForm={toggleFilterForm} />
@@ -79,16 +83,11 @@ const AnimalsPage = () => {
 
 export default AnimalsPage
 
-type Request = {
-    request: {
-        url: string;
-    }
-}
-
 export async function loader({ request }: Request) {
     const newUrl = new URL(request.url);
     const filters = Object.fromEntries(newUrl.searchParams.entries());
     const pathname = newUrl.pathname + newUrl.search;
+    debugger
     if (!isTokenValid(pathname)) {
         return redirect('/login');
     }

@@ -2,7 +2,7 @@ import { useSearchParams, useSubmit } from 'react-router-dom'
 import SearchBar from '../../../../components/ui/SearchBar/SearchBar'
 import { SubmitTarget } from 'react-router-dom/dist/dom';
 
-const AnimalSearchBar = () => {
+const OrganizationSearchBar = () => {
     const [searchParams] = useSearchParams();
     const existingParams = Object.fromEntries(searchParams.entries());
     const submit = useSubmit();
@@ -18,4 +18,4 @@ const AnimalSearchBar = () => {
     )
 }
 
-export default AnimalSearchBar
+export default OrganizationSearchBar

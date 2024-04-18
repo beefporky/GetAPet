@@ -2,15 +2,14 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Root from './pages/Root';
 import HomePage from './pages/HomePage/HomePage';
 import AnimalsPage from './pages/Animals/Animals';
-import OrganizationsPage from './pages/Organizations';
-import AnimalDetailsPage, { loader as animalDetailsLoader } from './pages/AnimalDetails/AnimalDetails';
+import OrganizationsPage, { loader as organizationsLoader } from './pages/Organizations/Organizations';
+import AnimalDetailsPage, { loader as animalDetailsLoader } from './pages/Animals/AnimalDetails/AnimalDetails';
 import AuthContextProvider from './store/auth-context';
 import ErrorPage from './pages/Error/Error';
 import { loader as animalsLoader } from './pages/Animals/Animals';
 import Login, { loader as authLoader } from './pages/Login';
 import { QueryClientProvider } from '@tanstack/react-query';
-import TestPage from './pages/Test';
-import OrganizationsLayout from './pages/OrganizationsLayout';
+import OrganizationsLayout from './pages/Organizations/OrganizationsLayout';
 import AnimalsLayout from './layouts/Animals';
 import { queryClient } from './utils/utils';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -32,6 +31,7 @@ const App = () => {
           index: true,
           loader: animalsLoader,
           element: <AnimalsPage />,
+          errorElement: <ErrorPage />
         }, {
           path: ':animalId',
           id: 'animal',
@@ -39,6 +39,7 @@ const App = () => {
           children: [{
             index: true,
             element: <AnimalDetailsPage />,
+            errorElement: <ErrorPage />
           }]
         }]
       }, {
@@ -46,10 +47,9 @@ const App = () => {
         element: <OrganizationsLayout />,
         children: [{
           index: true,
+          loader: organizationsLoader,
           element: <OrganizationsPage />,
-        }, {
-          path: ':testId',
-          element: <TestPage />
+          errorElement: <ErrorPage />
         }]
       }]
     },

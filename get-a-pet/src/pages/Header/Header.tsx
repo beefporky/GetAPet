@@ -23,6 +23,7 @@ const Header = () => {
     }, {
         name: 'Organizations',
         link: '/organizations',
+        isNav: true,
         end: false
     }];
 

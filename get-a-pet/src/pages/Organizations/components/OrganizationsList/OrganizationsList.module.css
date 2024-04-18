@@ -1,0 +1,20 @@
+.organizationsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0px;
+}
+
+.disabled {
+    opacity: .5;
+    pointer-events: none;
+}
+
+@media screen and (min-width: 768px) {
+    .organizationsList {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+    }
+}

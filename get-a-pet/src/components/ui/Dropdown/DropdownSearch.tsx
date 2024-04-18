@@ -1,5 +1,5 @@
 import classes from './DropdownSearch.module.css';
-import Button from '../Button'
+import Button from '../Button/Button'
 import Input from '../Input/Input';
 
 type InputChangeEvent = (event: React.ChangeEvent<HTMLInputElement>) => void;
