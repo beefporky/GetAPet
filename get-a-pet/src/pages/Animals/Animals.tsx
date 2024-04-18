@@ -1,22 +1,23 @@
-import { Suspense, useEffect, useState } from "react";
-import { Await, defer, redirect, useLoaderData, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { defer, redirect, useLoaderData, useSearchParams } from "react-router-dom";
 import Loading from "../../components/ui/Loading/Loading";
-import { useAnimals } from "../../store/animals-context";
 import AnimalsList from "./components/AnimalsList/AnimalsList";
-import { Animal, AnimalBreeds, AnimalType } from "../../models/Animal";
-import { Pagination } from "../../store/animals-context";
 import AnimalSearchBar from "./components/AnimalSearchBar/AnimalSearchBar";
 import classes from './Animals.module.css'
 import { isTokenValid } from "../../utils/auth";
 import AnimalFilterForm from "./components/AnimalFilterForm/AnimalFilterForm";
 import { queryClient } from "../../utils/utils";
-import { animalsQuery, animalBreedsQuery, animalTypesQuery, useAnimalsQuery } from "../../store/animals-query";
+import { animalBreedsQuery, animalTypesQuery, useAnimalsQuery } from "../../store/animals-query";
+import { Pagination, useAnimals } from "../../store/animals-context";
+import { AnimalBreeds, Animal, AnimalType } from "../../models/Animal";
+import { animalsQuery } from "../../store/animals-query";
 
 type LoaderTypes = { animals: Promise<{ animals: Animal[], pagination: Pagination }>, animalTypes: Promise<{ types: AnimalType[] }>, animalBreeds: Promise<{ breeds: AnimalBreeds[] }> }
 
+
 const AnimalsPage = () => {
-    // const [searchParams] = useSearchParams();
-    // const { data: animals, error, isLoading } = useAnimalsQuery(Object.fromEntries(searchParams.entries()));
+    const [searchParams] = useSearchParams();
+    const { error, isLoading } = useAnimalsQuery(Object.fromEntries(searchParams.entries()));
     const { animals, animalTypes: animalTypesPromise, animalBreeds } = useLoaderData() as LoaderTypes;
     const { replaceAnimals, replacePagination, appendAnimals, replaceAnimalTypes, animalTypes, updateBreeds, pagination } = useAnimals();
     const [filterFormData, setFilterFormData] = useState<object>({});
@@ -53,7 +54,6 @@ const AnimalsPage = () => {
             });
         }
     }, [animalBreeds]);
-
     function filterFormDataChange(formData: object) {
         setFilterFormData(formData);
     }
@@ -61,31 +61,20 @@ const AnimalsPage = () => {
     function toggleFilterForm() {
         setIsMobileFilterOpen(prev => !prev);
     }
-    // using react query
-    // if (isLoading) return <Loading />;
 
-    // return <main className={classes.animals}>
-    //     <AnimalSearchBar />
-    //     <div className={classes.filtersAndList}>
-    //         {/* <AnimalFilterForm filterFormDataChange={filterFormDataChange} isMobileFilterOpen={isMobileFilterOpen} toggleFilterForm={toggleFilterForm} /> */}
-    //         <AnimalsList filterFormData={filterFormData} toggleFilterForm={toggleFilterForm} />
-    //     </div>
-    // </main>;
+    if (isLoading) return <Loading />;
 
+    if (error) {
+        throw error
+    }
 
-    return (
-        <Suspense fallback={<Loading />}>
-            <Await resolve={animals}>
-                <main className={classes.animals}>
-                    <AnimalSearchBar />
-                    <div className={classes.filtersAndList}>
-                        <AnimalFilterForm filterFormDataChange={filterFormDataChange} isMobileFilterOpen={isMobileFilterOpen} toggleFilterForm={toggleFilterForm} />
-                        <AnimalsList filterFormData={filterFormData} toggleFilterForm={toggleFilterForm} />
-                    </div>
-                </main>
-            </Await>
-        </Suspense>
-    )
+    return <main className={classes.animals}>
+        <AnimalSearchBar />
+        <div className={classes.filtersAndList}>
+            <AnimalFilterForm filterFormDataChange={filterFormDataChange} isMobileFilterOpen={isMobileFilterOpen} toggleFilterForm={toggleFilterForm} />
+            <AnimalsList filterFormData={filterFormData} toggleFilterForm={toggleFilterForm} />
+        </div>
+    </main>;
 }
 
 export default AnimalsPage
@@ -106,7 +95,6 @@ export async function loader({ request }: Request) {
     const animalsQueryObj = animalsQuery(filters);
     const animalTypesQueryObj = animalTypesQuery();
     const animalBreedsQueryObj = animalBreedsQuery(filters.type || 'dog');
-
     return defer({
         animals: queryClient.getQueryData(animalsQueryObj.queryKey) ?? queryClient.fetchQuery(animalsQueryObj),
         animalTypes: queryClient.getQueryData(animalTypesQueryObj.queryKey) ?? queryClient.fetchQuery(animalTypesQueryObj),
