@@ -1,4 +1,13 @@
-import {QueryClient} from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/react-query';
+
+export const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            retry: false
+        }
+    }
+});
 
 export const convertObjectToStringQuery = (filters: object) => {
     const filter = Object.entries(filters).map(([key, value]) => {
@@ -22,4 +31,10 @@ export const extractVideoSrcFromHtmlEmbed = (embed: string) => {
     }
 }
 
-export const queryClient = new QueryClient();
+export type Pagination = {
+    count_per_page: number;
+    total_count: number;
+    current_page: number;
+    total_pages: number;
+    _links: object;
+}

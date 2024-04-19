@@ -7,12 +7,14 @@ export const animalsQuery = (filters: object) => {
         queryFn: () => getAnimals(filters)
     }
 }
+
 export const animalTypesQuery = () => {
     return {
         queryKey: ['animalTypes'],
         queryFn: () => getAnimalTypes()
     }
 }
+
 export const animalBreedsQuery = (filters: string) => {
     return {
         queryKey: ['animalBreeds', filters],

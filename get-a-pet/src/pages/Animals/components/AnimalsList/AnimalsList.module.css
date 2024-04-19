@@ -42,6 +42,12 @@
     align-items: center;
 }
 @media screen and (min-width: 768px){
+    .list {
+        flex-direction: row;
+    }
+}
+
+@media screen and (min-width: 1024px){
     .filterButton {
         display: none;
     }

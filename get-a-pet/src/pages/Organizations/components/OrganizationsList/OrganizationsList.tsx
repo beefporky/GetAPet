@@ -1,28 +1,39 @@
-import { useAsyncValue, useNavigation } from 'react-router-dom'
+import { useNavigation, useSearchParams } from 'react-router-dom'
 import { Organization } from '../../../../models/Organization';
 import classes from './OrganizationsList.module.css'
 import OrganizationItem from '../OrganizationItem/OrganizationItem';
-
-type OrganizationResponseType = {
-    organizations: Organization[];
-    pagination: {
-        total: number;
-        limit: number;
-        page: number;
-        pages: number;
-    }
-}
+import { useOrganizationsQuery } from '../../../../store/organizations-query';
+import Loading from '../../../../components/ui/Loading/Loading';
 
 const OrganizationsList = () => {
-    const { organizations } = useAsyncValue() as OrganizationResponseType;
+    const [searchParams] = useSearchParams();
+    const filters = Object.fromEntries(searchParams.entries());
+    const { data, error, isFetchingNextPage } = useOrganizationsQuery(filters);
     const { state } = useNavigation();
 
-    return <ul className={state === 'loading' ? `${classes.organizationsList} ${classes.disabled}` : classes.organizationsList}>
-        {organizations.map((organization: Organization) => (
-            <li key={organization.id}>
-                <OrganizationItem organization={organization} />
-            </li>
-        ))}
+    let content = <Loading />
+
+    if (error) {
+        throw error;
+    }
+    if (data) {
+        const organizations = [];
+        for (const page of data.pages) {
+            organizations.push(...page.organizations);
+        }
+        content = (
+            <>
+                {organizations.map((organization: Organization) => (
+                    <li key={organization.id}>
+                        <OrganizationItem organization={organization} />
+                    </li>
+                ))}
+            </>
+        );
+    }
+
+    return <ul className={state === 'loading' || isFetchingNextPage ? `${classes.organizationsList} ${classes.disabled}` : classes.organizationsList}>
+        {content}
     </ul>
 }
 

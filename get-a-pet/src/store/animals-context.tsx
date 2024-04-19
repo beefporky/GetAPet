@@ -1,13 +1,6 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import { AnimalType, type Animal, type AnimalBreeds } from "../models/Animal";
-
-export type Pagination = {
-    count_per_page: number;
-    total_count: number;
-    current_page: number;
-    total_pages: number;
-    _links: object;
-}
+import { Pagination } from "../utils/utils";
 
 type AnimalValues = {
     animals: Animal[];

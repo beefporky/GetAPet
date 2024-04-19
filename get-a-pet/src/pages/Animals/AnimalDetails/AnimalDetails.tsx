@@ -24,7 +24,6 @@ export default AnimalDetailsPage
 type ParamsType = {
     params: {
         animalId: number;
-
     }
     request: {
         url: string;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { defer, redirect, useAsyncValue, useLoaderData, useSearchParams } from "react-router-dom";
+import { defer, redirect, useLoaderData, useSearchParams } from "react-router-dom";
 import Loading from "../../components/ui/Loading/Loading";
 import AnimalsList from "./components/AnimalsList/AnimalsList";
 import AnimalSearchBar from "./components/AnimalSearchBar/AnimalSearchBar";
@@ -8,10 +8,11 @@ import { isTokenValid } from "../../utils/auth";
 import AnimalFilterForm from "./components/AnimalFilterForm/AnimalFilterForm";
 import { queryClient } from "../../utils/utils";
 import { animalBreedsQuery, animalTypesQuery, useAnimalsQuery } from "../../store/animals-query";
-import { Pagination, useAnimals } from "../../store/animals-context";
+import { useAnimals } from "../../store/animals-context";
 import { AnimalBreeds, Animal, AnimalType } from "../../models/Animal";
 import { animalsQuery } from "../../store/animals-query";
 import { Request } from "../../utils/network";
+import { Pagination } from "../../utils/utils";
 
 type LoaderTypes = { animals: Promise<{ animals: Animal[], pagination: Pagination }>, animalTypes: Promise<{ types: AnimalType[] }>, animalBreeds: Promise<{ breeds: AnimalBreeds[] }> }
 
@@ -87,7 +88,6 @@ export async function loader({ request }: Request) {
     const newUrl = new URL(request.url);
     const filters = Object.fromEntries(newUrl.searchParams.entries());
     const pathname = newUrl.pathname + newUrl.search;
-    debugger
     if (!isTokenValid(pathname)) {
         return redirect('/login');
     }
