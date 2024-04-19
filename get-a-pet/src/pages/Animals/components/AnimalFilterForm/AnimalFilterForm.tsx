@@ -94,7 +94,6 @@ const AnimalFilterForm = ({ filterFormDataChange, isMobileFilterOpen, toggleFilt
                     <Dropdown options={sizeOptions} name="size" selectLabel="Size" onChange={handleSizeChange} value={sizeValue} multi />
                     <Dropdown options={genderOptions} name="gender" selectLabel="Gender" onChange={handleGenderChange} value={genderValue} multi />
                     <div>
-                        <Button textOnly={false} type='reset'>Reset</Button>
                         <Button textOnly={false} type='button' onClick={toggleFilterForm} className={classes.resultsToggle}>Show Results</Button>
                     </div>
                 </Form>

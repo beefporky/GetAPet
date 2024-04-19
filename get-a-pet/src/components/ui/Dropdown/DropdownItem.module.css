@@ -1,6 +1,7 @@
 .item {
     padding: .1em;
     font-size: 1.1rem;
+    padding-left: 10px;
 }
 
 .item:hover {
@@ -14,4 +15,5 @@
     background-color: var(--color-secondary);
     color: var(--color-gray-100);
     transition: color, background-color .4s ease-out;
+    padding-left: 10px;
 }

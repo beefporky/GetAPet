@@ -17,4 +17,5 @@
     box-shadow: .07em .07em .07em .07em var(--color-secondary);
     transition: box-shadow .3s;
     border-color: var(--color-secondary);
+    outline: none;
 }

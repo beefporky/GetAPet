@@ -41,6 +41,7 @@
     overflow-x: hidden;
     word-break: wrap;
     border-radius: .3em;
+    padding-left: 0px;
 }
 
 .show {
