@@ -13,6 +13,7 @@ import OrganizationsLayout from './pages/Organizations/OrganizationsLayout';
 import AnimalsLayout from './layouts/Animals';
 import { queryClient } from './utils/utils';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import OrganizationDetailsPage, { loader as organizationDetailsLoader } from './pages/Organizations/OrganizationDetail/OrganizationDetail';
 
 // TODO: create unit tests
 const App = () => {
@@ -50,6 +51,14 @@ const App = () => {
           loader: organizationsLoader,
           element: <OrganizationsPage />,
           errorElement: <ErrorPage />
+        }, {
+          path: ':organizationId',
+          loader: organizationDetailsLoader,
+          children: [{
+            index: true,
+            element: <OrganizationDetailsPage />,
+            errorElement: <ErrorPage />
+          }]
         }]
       }]
     },

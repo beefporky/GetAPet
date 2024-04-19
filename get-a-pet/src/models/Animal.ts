@@ -1,9 +1,4 @@
-export type Photo = {
-    small: string;
-    medium: string;
-    large: string;
-    full: string;
-}
+import { Photo } from "./Common";
 
 export type Breed = {
     primary: string;

@@ -1,5 +1,5 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { getOrganizations } from "../services/organization";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { getOrganization, getOrganizations } from "../services/organization";
 import { Pagination } from "../utils/utils";
 import { Organization } from "../models/Organization";
 
@@ -18,6 +18,17 @@ export const organizationsQuery = (filters: object) => {
     }
 }
 
+export const organizationQuery = (id: string) => {
+    return {
+        queryKey: ['organization', id],
+        queryFn: () => getOrganization(id)
+    }
+}
+
 export const useOrganizationsQuery = (filters: object) => {
     return useInfiniteQuery(organizationsQuery(filters));
+}
+
+export const useOrganizationQuery = (id: string) => {
+    return useQuery(organizationQuery(id));
 }

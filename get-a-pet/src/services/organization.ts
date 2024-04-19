@@ -1,3 +1,4 @@
+import { Organization } from "../models/Organization";
 import { sendRequest } from "../utils/network";
 import { convertObjectToStringQuery, removeEmptyObjectValues } from "../utils/utils";
 
@@ -12,4 +13,10 @@ export const getOrganizations = async(filters: object) => {
     const data = await sendRequest(`/organizations?${filterString}`);
     
     return data;
+}
+
+export const getOrganization = async(id: string) => {
+    const data = await sendRequest(`/organizations/${id}`);
+    
+    return data.organization as Organization;
 }

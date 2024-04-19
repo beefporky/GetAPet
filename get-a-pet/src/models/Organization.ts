@@ -1,4 +1,5 @@
-import { Photo } from "./Animal";
+import { Photo } from "./Common";
+
 export type Organization = {
     id: string;
     name: string;

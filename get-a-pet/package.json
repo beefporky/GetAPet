@@ -12,6 +12,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.28.9",
     "@tanstack/react-query-devtools": "^5.29.2",
+    "@types/react-image-gallery": "^1.2.4",
     "dotenv": "^16.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
