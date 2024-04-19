@@ -1,5 +1,5 @@
 import { Animal } from "../../../models/Animal";
-import { Photo } from '../../../models/Animal';
+import { Photo } from "../../../models/Common";
 import animalPlaceHolder from '../../../assets/animal-placeholder.png';
 import playIcon from '../../../assets/play-icon.png';
 import classes from './AnimalDetails.module.css';
