@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import classes from './HomePage.module.css';
+import { useEffect } from "react";
 
 const HomePage = () => {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
-    if (!token) {
-        navigate('/login', { replace: true, state: { from: '/' } });
-    }
+    useEffect(() => {
+        if (!token) {
+            navigate('/login', { replace: true, state: { from: '/' } });
+        }
+    }, []);
+
     return (
         <main>
             <section className={classes.mainPage}>

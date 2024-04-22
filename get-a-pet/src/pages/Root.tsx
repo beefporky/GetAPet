@@ -14,7 +14,7 @@ const Root = () => {
             <ModalContextProvider>
                 <Header />
                 <Outlet />
-                <Modal />
+                {/* <Modal /> */}
             </ModalContextProvider>
         </AnimalsContextProvider>
     )

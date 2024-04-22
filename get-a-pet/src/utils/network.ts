@@ -24,6 +24,7 @@ export const sendRequest = async (url: string, parameters?: object, method: rest
         requestConfig.body = JSON.stringify(parameters);
     }
     const response = await fetch(`${defaultURL}${url}`, requestConfig);
+
     if (!response.ok) {
         throw json({
             message: "Something went wrong with the request."
@@ -33,6 +34,5 @@ export const sendRequest = async (url: string, parameters?: object, method: rest
     }
 
     const data = await response.json();
-
     return data;
 }
