@@ -13,7 +13,6 @@ type SearchBarProps = {
 } & ComponentPropsWithoutRef<'form'>
 
 const SearchBar = ({ handleSubmit, ...props }: SearchBarProps) => {
-
     return (
         <Form method='GET' onSubmit={handleSubmit}>
             <div className={classes.searchContainer}>

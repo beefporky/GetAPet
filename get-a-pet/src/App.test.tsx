@@ -1,9 +1,7 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, screen } from "@testing-library/react";
 import App from "./App";
-import userEvent from "@testing-library/user-event";
 import { server } from "./test/mocks/server";
-import { BrowserRouter, MemoryRouter, RouterProvider, createMemoryRouter } from "react-router-dom";
-import { routesConfig } from "./routes";
+import { render } from "./test/test-utils";
 
 describe('App', () => {
     beforeAll(() => {
@@ -19,13 +17,17 @@ describe('App', () => {
         server.close();
     });
 
-    it("should test the routes", async () => {
+    it("should test the routes and landing page", async () => {
         render(<App />);
         expect(screen.getByText('The Best Pets Available')).toBeInTheDocument();
 
-        // const user = userEvent.setup();
-        // await user.click(screen.getByText('Animals'));
-        // expect(screen.getByText('Loading')).toBeInTheDocument();
-
+        const links = screen.getAllByRole('link');
+        const linkTexts = ['Home', 'Animals', 'Organizations'];
+        const navRoutes = ['/', '/animals', '/organizations'];
+        links.forEach((link) => {
+            const href = link.getAttribute('href');
+            expect(linkTexts.includes(link.innerHTML)).toEqual(true);
+            expect(navRoutes.includes(href!)).toEqual(true);
+        });
     });
 })

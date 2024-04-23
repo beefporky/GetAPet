@@ -45,6 +45,7 @@ const AnimalsList = ({ filterFormData, toggleFilterForm }: AnimalsListProps) => 
     function handleSortChange(option: string) {
         setSortValue(option);
     }
+
     return (
         <div className={classes.listContainer}>
             <div className={classes.sortAndFilter}>

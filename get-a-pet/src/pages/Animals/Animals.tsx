@@ -71,7 +71,6 @@ const AnimalsPage = () => {
     if (error) {
         throw error
     }
-
     return <main className={classes.animals}>
         <h3 className={classes.sectionHeader}>Animals</h3>
         <AnimalSearchBar />

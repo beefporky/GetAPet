@@ -1,17 +1,30 @@
 import { cleanup, screen } from '@testing-library/react';
-import AnimalsPage from "./Animals";
-import { render } from "../../test/test-utils";
-// import { render } from '@testing-library/react';
-import { RouterProvider, createBrowserRouter, createMemoryRouter } from "react-router-dom";
+import { render, setupQueryClient } from "../../test/test-utils";
+import { RouteObject, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { routesConfig } from '../../routes';
 import { vi } from 'vitest';
 import { server } from '../../test/mocks/server';
 import userEvent from '@testing-library/user-event';
+import { waitFor } from '@testing-library/react';
+import { QueryClient } from '@tanstack/react-query';
 
 describe("Animals", () => {
+    let queryClient: QueryClient;
+
+    beforeEach(() => {
+        queryClient = setupQueryClient();
+    });
 
     beforeAll(() => {
         server.listen();
+        // mock the token valid function
+        vi.mock('../../utils/auth', async (isTokenValid) => {
+            const mod = await isTokenValid<typeof import('../../utils/auth')>()
+            return {
+                ...mod,
+                isTokenValid: vi.fn(() => true)
+            }
+        });
     });
 
     afterEach(() => {
@@ -21,33 +34,28 @@ describe("Animals", () => {
 
     afterAll(() => {
         server.close();
+        vi.clearAllMocks();
     });
 
     it("should render the Animals page", async () => {
-        // mock the token valid function
-        vi.mock('../../utils/auth', async (isTokenValid) => {
-            const mod = await isTokenValid<typeof import('../../utils/auth')>()
-            return {
-                ...mod,
-                isTokenValid: vi.fn(() => true)
-            }
-        });
+        // we use createBrowserRouter instead of createMemoryRouter since <Link> components use the context api which is not available in the memory router
+        const router = createBrowserRouter(routesConfig as RouteObject[]);
 
-        const router = createBrowserRouter(routesConfig, {
-            initialEntries: ['/animals']
-        });
+        render(<RouterProvider router={router} />, { queryClient })
 
-        render(<RouterProvider router={router} />)
-
-
-        // render(<AnimalsPage />, { initialEntries: ['/animals'] })
-        const animals = screen.getByText('Animals');
-        const user = userEvent.setup();
-        await user.click(animals);
+        // navigate to animals page
+        const animalsLink = screen.getByText('Animals');
+        await userEvent.click(animalsLink);
         const loading = screen.getByText('Loading');
-        // TODO: need to check the result after the loading
-        // TODO: create custom query
-        // TODO: test context api
+
         expect(loading).toBeInTheDocument();
+        // use waitFor to get the result of the query
+        await waitFor(() => {
+            const form = screen.getByRole('form');
+            const data = form.getAttribute('name');
+
+            expect(data).toEqual('filterForm');
+        });
+        // TODO: test context api
     });
 })

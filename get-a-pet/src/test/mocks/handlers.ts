@@ -18,17 +18,17 @@ export const handlers = [
     }),
 
     http.get(`${defaultURL}/animals`, async () => {
-        await delay(1);
+        await delay(150);
         return HttpResponse.json(animalsResponse)
     }),
 
     http.get(`${defaultURL}/types`, async () => {
-        await delay(1);
+        await delay(150);
         return HttpResponse.json(animalTypesResponse)
     }),
 
     http.get(`${defaultURL}/types/dog/breeds`, async () => {
-        await delay(1);
+        await delay(150);
         return HttpResponse.json(animalBreedsResponse)
     })
 ];
