@@ -53,4 +53,4 @@ export function setupQueryClient(config?: QueryClientConfig | undefined) {
 }
 
 export * from '@testing-library/react'
-export { customRender as render, /*renderWithRouter */ }
+export { customRender as render }

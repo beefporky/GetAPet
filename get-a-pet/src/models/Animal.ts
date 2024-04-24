@@ -2,7 +2,7 @@ import { Photo } from "./Common";
 
 export type Breed = {
     primary: string;
-    secondary?: null;
+    secondary?: string | null;
     mixed: boolean;
     unknown: boolean;
 }
@@ -10,7 +10,7 @@ export type Breed = {
 export type AnimalAttribute = {
     spayed_neutered: boolean;
     house_trained: boolean;
-    declawed: boolean;
+    declawed?: boolean | null;
     special_needs: boolean;
     shots_current: boolean;
 }
@@ -48,15 +48,15 @@ export type AnimalBreeds = {
 export type AnimalEnvironment = {
     "children": boolean;
     "dogs": boolean;
-    "cats": boolean;
+    "cats": boolean | null;
 }
 
 export type AnimalContact = {
     email: string;
-    phone: string;
+    phone: string | null;
     address: {
-        address1: string;
-        address2: string;
+        address1?: string | null;
+        address2?: string | null;
         city: string;
         state: string;
         postcode: string;
@@ -65,9 +65,9 @@ export type AnimalContact = {
 }
 
 export type AnimalColor = {
-    primary: string;
-    secondary: string;
-    tertiary: string;
+    primary: string | null;
+    secondary: string | null;
+    tertiary: string | null;
 }
 
 export type AnimalVideo = {
@@ -75,7 +75,7 @@ export type AnimalVideo = {
 }
 
 export type Animal = {
-    id: string;
+    id: number;
     name: string;
     type: string;
     species: string;

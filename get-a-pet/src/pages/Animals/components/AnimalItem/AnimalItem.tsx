@@ -1,7 +1,9 @@
 import { type Animal } from "../../../../models/Animal"
 import classes from './AnimalItem.module.css'
 import animalPlaceHolder from '../../../../assets/animal-placeholder.png'
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { IoMdMale } from "react-icons/io";
+import { IoMdFemale } from "react-icons/io";
 
 type AnimalItemProps = {
     animal: Animal;
@@ -14,9 +16,10 @@ const AnimalItem = ({ animal }: AnimalItemProps) => {
     function handleItemClick() {
         navigate(`/animals/${animal.id}`);
     }
+
     return (
         <li onClick={handleItemClick} className={classes.listItemContainer}>
-            <Link to={`/animals/${animal.id}`} className={classes.listItem}>
+            <div className={classes.listItem}>
                 <img src={img} alt={animal.name} />
                 <div className={classes.itemDetails}>
                     <div className={classes.text}>
@@ -24,9 +27,10 @@ const AnimalItem = ({ animal }: AnimalItemProps) => {
                         <p className={classes.animalType}>{animal.type}</p>
                         <p>{animal.breeds.primary}</p>
                         <p>{animal.age}</p>
+                        {animal.gender.toLowerCase() === 'male' ? <IoMdMale /> : <IoMdFemale />}
                     </div>
                 </div>
-            </Link>
+            </div>
         </li>
     )
 }

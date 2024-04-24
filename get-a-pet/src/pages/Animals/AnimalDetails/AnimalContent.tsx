@@ -7,7 +7,7 @@ import Chip from "../../../components/ui/Chip/Chip";
 import ImageGallery from "react-image-gallery";
 import { extractVideoSrcFromHtmlEmbed } from "../../../utils/utils";
 
-type AnimalContentProps = {
+export type AnimalContentProps = {
     animal: Animal;
 }
 

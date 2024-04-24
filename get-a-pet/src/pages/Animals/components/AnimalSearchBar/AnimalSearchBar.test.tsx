@@ -25,16 +25,6 @@ describe("AnimalSearchBar", () => {
                 isTokenValid: vi.fn(() => true)
             }
         });
-
-        // mock the submit function
-        vi.mock('react-router-dom', async (importOriginal) => {
-            const actual = await importOriginal<Promise<object>>();
-            return {
-                ...actual,
-                // useSubmit: vi.fn(() => vi.fn(() => { }))
-                useSubmit: vi.fn(() => vi.fn(() => Promise.resolve()))
-            }
-        })
     });
 
     afterEach(() => {
@@ -47,6 +37,19 @@ describe("AnimalSearchBar", () => {
     });
 
     it("should render the AnimalSearchBar and search", async () => {
+        const searchSample = 'mimi';
+        // mock the submit function
+        vi.mock('react-router-dom', async (importOriginal) => {
+            const actual = await importOriginal<Promise<object>>();
+            return {
+                ...actual,
+                // useSubmit: vi.fn(() => vi.fn(() => { }))
+                useSubmit: vi.fn(() => vi.fn((params) => {
+                    const searchSample = 'mimi';
+                    expect(params.name).toEqual(searchSample)
+                }))
+            }
+        })
         // we use createBrowserRouter instead of createMemoryRouter since <Link> components use the context api which is not available in the memory router
         const router = createBrowserRouter(routesConfig as RouteObject[]);
 
@@ -64,7 +67,7 @@ describe("AnimalSearchBar", () => {
             const searchContainer = container.querySelector('div[class*="searchContainer"');
             const searchInput = searchContainer!.querySelector('input');
             const searchButton = searchContainer!.querySelector('button');
-            await userEvent.type(searchInput!, 'mimi');
+            await userEvent.type(searchInput!, searchSample);
             await userEvent.click(searchButton!)
 
             expect(useSubmit).toHaveBeenCalled();
