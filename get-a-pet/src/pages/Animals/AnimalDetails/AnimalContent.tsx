@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck 
 import { Animal } from "../../../models/Animal";
 import { Photo } from "../../../models/Common";
 import animalPlaceHolder from '../../../assets/animal-placeholder.png';

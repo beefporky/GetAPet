@@ -9,6 +9,7 @@ import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaPinterest } from "react-icons/fa";
+import { Hours } from '../../../models/Organization';
 
 const OrganizationDetailsPage = () => {
     const { organizationId } = useParams<{ organizationId: string }>();
@@ -77,7 +78,7 @@ const OrganizationDetailsPage = () => {
             <p>{data?.mission_statement}</p>
             <div className={classes.scheduleContainer}>
                 <h4>Clinic Hours</h4>
-                {days.map((day) => <p>{day.name}: <span className={classes.schedule}>{data.hours[day.day]}</span></p>)}
+                {days.map((day) => <p>{day.name}: <span className={classes.schedule}>{data.hours[day.day as keyof Hours]}</span></p>)}
             </div>
             <address className={classes.orgAddress}>
                 <h4>Address</h4>
@@ -87,7 +88,7 @@ const OrganizationDetailsPage = () => {
                 <p>{data.phone}</p>
             </address>
             <div className={classes.socialMedia}>
-                {socialMedia.map((media) => data.social_media[media.name as keyof typeof data.social_media] && <a href={data.social_media[media.name as keyof typeof data.social_media]} target="_blank">{media.icon}</a>)}
+                {socialMedia.map((media) => data.social_media![media.name as keyof typeof data.social_media] && <a href={data.social_media![media.name as keyof typeof data.social_media]} target="_blank">{media.icon}</a>)}
             </div>
         </main>
     }

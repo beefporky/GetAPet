@@ -17,7 +17,7 @@ export type Organization = {
     url: string | null;
     website: string;
     mission_statement: string;
-    social_media: SocialMedia;
+    social_media: SocialMedia | null;
     adoption: {
         policy: string | null;
         url: string | null;
