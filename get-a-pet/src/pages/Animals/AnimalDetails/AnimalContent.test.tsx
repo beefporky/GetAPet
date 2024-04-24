@@ -8,7 +8,6 @@ describe("AnimalContent", () => {
     it("should render all AnimalContent including videos and images", () => {
         const animal: Animal = animalContentResponse;
         const { container } = render(<AnimalContent animal={animal} />);
-        console.log('"' + animal.contact.address.city + '"')
         const name = screen.getByText(animal.name);
         const gender = screen.getByText(animal.gender);
         const status = screen.getByText(animal.status);

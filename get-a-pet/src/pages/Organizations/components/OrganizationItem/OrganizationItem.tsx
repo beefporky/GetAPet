@@ -17,7 +17,7 @@ const OrganizationItem = ({ organization }: OrganizationItemProps) => {
                 <h2>{organization.name}</h2>
                 <p>{organization.mission_statement}</p>
                 <address className={classes.orgAddress}>
-                    <p>{organization.address.city}, </p>
+                    <p>{organization.address.city.trim()}, </p>
                     <p>{organization.address.state}, {organization.address.country}</p>
                 </address>
             </div>

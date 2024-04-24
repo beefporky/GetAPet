@@ -6,24 +6,24 @@ export type Organization = {
     email: string;
     phone: string;
     address: {
-        address1: string;
-        address2: string;
+        address1: string | null;
+        address2: string | null;
         city: string;
         state: string;
         postcode: string;
         country: string;
     };
     hours: Hours;
-    url: string;
+    url: string | null;
     website: string;
     mission_statement: string;
     social_media: SocialMedia;
     adoption: {
-        policy: string;
-        url: string;
+        policy: string | null;
+        url: string | null;
     }
     photos: Photo[];
-    distance: string;
+    distance: string | null;
     _links: {
         self: {
             href: string;
@@ -35,19 +35,19 @@ export type Organization = {
 }
 
 export type Hours = {
-    monday: string;
-    tuesday: string;
-    wednesday: string;
-    thursday: string;
-    friday: string;
-    saturday: string;
-    sunday: string;
+    monday: string | null;
+    tuesday: string | null;
+    wednesday: string | null;
+    thursday: string | null;
+    friday: string | null;
+    saturday: string | null;
+    sunday: string | null;
 }
 
 export type SocialMedia = {
-    facebook: string;
-    twitter: string;
-    youtube: string;
-    instagram: string;
-    pinterest: string;
+    facebook: string | null;
+    twitter: string | null;
+    youtube: string | null;
+    instagram: string | null;
+    pinterest: string | null;
 }

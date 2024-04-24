@@ -1,5 +1,5 @@
 import { defer, redirect, useSubmit, useSearchParams } from 'react-router-dom'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import OrganizationsList from './components/OrganizationsList/OrganizationsList';
 import { isTokenValid } from '../../utils/auth';
 import { Request } from '../../utils/network';
@@ -11,6 +11,7 @@ import OrganizationSearchBar from './components/OrganizationSearchBar/Organizati
 import { organizationsQuery, useOrganizationsQuery } from '../../store/organizations-query';
 import { queryClient } from '../../utils/utils';
 import Loading from '../../components/ui/Loading/Loading';
+import useCustomEffect from '../../hooks/useCustomEffect';
 
 const sortOptions: DropdownOption[] = [{ label: 'Name Ascending', value: 'name' }, { label: 'Name Descending', value: '-name' }];
 
@@ -21,9 +22,7 @@ const OrganizationsPage = () => {
     const [sortValue, setSortValue] = useState('');
     const submit = useSubmit();
 
-
-
-    useEffect(() => {
+    useCustomEffect(() => {
         submit({ sort: sortValue });
     }, [sortValue]);
 

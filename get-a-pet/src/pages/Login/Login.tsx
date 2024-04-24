@@ -18,14 +18,12 @@ const Login = () => {
     function redirectToPreviousPath() {
         const prevPath = localStorage.getItem('prevPath');
         localStorage.removeItem('prevPath');
-        console.log('dito')
         navigate(prevPath || '/', { replace: true });
     }
 
     return <Suspense fallback={<Loading />}>
         <Await resolve={token}>
             {(tokenData) => {
-                console.log('over')
                 setBearerToken(tokenData);
                 redirectToPreviousPath();
                 return <></>
