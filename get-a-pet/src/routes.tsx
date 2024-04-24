@@ -59,7 +59,8 @@ export const routesConfig = [
   {
     path: 'login',
     element: <Login />,
-    loader: authLoader
+    loader: authLoader,
+    errorElement: <ErrorPage />
   }
 ]
 
