@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { defer, redirect, useLoaderData, useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import { defer, redirect, useSearchParams } from "react-router-dom";
 import Loading from "../../components/ui/Loading/Loading";
 import AnimalsList from "./components/AnimalsList/AnimalsList";
 import AnimalSearchBar from "./components/AnimalSearchBar/AnimalSearchBar";
@@ -8,55 +8,17 @@ import { isTokenValid } from "../../utils/auth";
 import AnimalFilterForm from "./components/AnimalFilterForm/AnimalFilterForm";
 import { queryClient } from "../../utils/utils";
 import { animalBreedsQuery, animalTypesQuery, useAnimalsQuery } from "../../store/animals-query";
-import { useAnimals } from "../../store/animals-context";
-import { AnimalBreeds, Animal, AnimalType } from "../../models/Animal";
 import { animalsQuery } from "../../store/animals-query";
 import { Request } from "../../utils/network";
-import { Pagination } from "../../utils/utils";
-
-type LoaderTypes = { animals: Promise<{ animals: Animal[], pagination: Pagination }>, animalTypes: Promise<{ types: AnimalType[] }>, animalBreeds: Promise<{ breeds: AnimalBreeds[] }> }
+import useAnimalData from "../../hooks/useAnimalData";
 
 
 const AnimalsPage = () => {
     const [searchParams] = useSearchParams();
     const { error, isLoading } = useAnimalsQuery(Object.fromEntries(searchParams.entries()));
-    const { animals, animalTypes: animalTypesPromise, animalBreeds } = useLoaderData() as LoaderTypes;
-    const { replaceAnimals, replacePagination, appendAnimals, replaceAnimalTypes, animalTypes, updateBreeds, pagination } = useAnimals();
     const [filterFormData, setFilterFormData] = useState<object>({});
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-
-    // TODO: refactor useEffect
-    useEffect(() => {
-        if (animals.then) {
-            animals.then((responseAnimals: { animals: Animal[], pagination: Pagination }) => {
-                if (responseAnimals.pagination.current_page > pagination.current_page) {
-                    appendAnimals(responseAnimals.animals);
-                } else {
-                    replaceAnimals(responseAnimals.animals);
-                }
-                replacePagination(responseAnimals.pagination);
-            });
-        }
-    }, [animals]);
-
-
-    useEffect(() => {
-        if (animalTypesPromise.then) {
-            if (animalTypes.length === 0) {
-                animalTypesPromise.then((responseAnimalTypes: { types: AnimalType[] }) => {
-                    replaceAnimalTypes(responseAnimalTypes.types);
-                });
-            }
-        }
-    }, [animalTypes]);
-
-    useEffect(() => {
-        if (animalBreeds.then) {
-            animalBreeds.then((responseBreeds: { breeds: AnimalBreeds[] }) => {
-                updateBreeds(responseBreeds.breeds);
-            });
-        }
-    }, [animalBreeds]);
+    useAnimalData();
 
     function filterFormDataChange(formData: object) {
         setFilterFormData(formData);
