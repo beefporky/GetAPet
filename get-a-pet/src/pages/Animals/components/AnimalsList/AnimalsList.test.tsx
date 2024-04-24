@@ -46,6 +46,7 @@ describe("AnimalsList", () => {
             expect(container.querySelector('div[class*="listContainer"]')).toBeInTheDocument();
             expect(container.querySelector('div[class*="sortAndFilter"]')).toBeInTheDocument();
             expect(container.querySelector('a[class*="loadMore"]')).toBeInTheDocument();
+            expect(container.querySelector('div[class*="listContainer"]')!.querySelector('ul[class*="list"]')?.querySelectorAll('li').length).toEqual(5);
         });
     });
 });

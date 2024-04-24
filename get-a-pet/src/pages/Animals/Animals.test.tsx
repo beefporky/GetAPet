@@ -56,6 +56,5 @@ describe("Animals", () => {
 
             expect(data).toEqual('filterForm');
         });
-        // TODO: test context api
     });
 })

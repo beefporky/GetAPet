@@ -15,7 +15,6 @@ type AnimalFilterFormProps = {
 
 const AnimalFilterForm = ({ filterFormDataChange, isMobileFilterOpen, toggleFilterForm }: AnimalFilterFormProps) => {
     const [searchParams] = useSearchParams();
-    // TODO: bind the search values to the dropdowns
     const searchParamsObj = Object.fromEntries(searchParams.entries());
     const { animalTypes, breeds } = useAnimals();
     const submit = useSubmit();

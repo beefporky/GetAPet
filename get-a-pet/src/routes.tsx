@@ -5,10 +5,9 @@ import OrganizationsPage, { loader as organizationsLoader } from './pages/Organi
 import AnimalDetailsPage, { loader as animalDetailsLoader } from './pages/Animals/AnimalDetails/AnimalDetails';
 import ErrorPage from './pages/Error/Error';
 import { loader as animalsLoader } from './pages/Animals/Animals';
-import Login, { loader as authLoader } from './pages/Login';
-import OrganizationsLayout from './pages/Organizations/OrganizationsLayout';
+import Login, { loader as authLoader } from './pages/Login/Login';
+import OrganizationsLayout from './layouts/OrganizationsLayout';
 import AnimalsLayout from './layouts/Animals';
-
 import OrganizationDetailsPage, { loader as organizationDetailsLoader } from './pages/Organizations/OrganizationDetail/OrganizationDetail';
 
 export const routesConfig = [

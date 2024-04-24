@@ -1,10 +1,10 @@
 import { Await, defer, redirect, useLoaderData, useNavigate } from "react-router-dom"
-import { TokenType, authenticate } from "../services/auth"
-import { isTokenValid } from "../utils/auth"
-import { useAuth } from "../store/auth-context"
+import { TokenType, authenticate } from "../../services/auth"
+import { isTokenValid } from "../../utils/auth"
+import { useAuth } from "../../store/auth-context"
 import { Suspense } from "react"
-import Loading from "../components/ui/Loading/Loading"
-import { Request } from "../utils/network"
+import Loading from "../../components/ui/Loading/Loading"
+import { Request } from "../../utils/network"
 
 type TokenData = {
     token: Promise<TokenType>;
@@ -18,12 +18,14 @@ const Login = () => {
     function redirectToPreviousPath() {
         const prevPath = localStorage.getItem('prevPath');
         localStorage.removeItem('prevPath');
+        console.log('dito')
         navigate(prevPath || '/', { replace: true });
     }
 
     return <Suspense fallback={<Loading />}>
         <Await resolve={token}>
             {(tokenData) => {
+                console.log('over')
                 setBearerToken(tokenData);
                 redirectToPreviousPath();
                 return <></>
