@@ -88,7 +88,7 @@ const AnimalFilterForm = ({ filterFormDataChange, isMobileFilterOpen, toggleFilt
                 <legend className={classes.filterLegend}>Filters</legend>
                 <Form method='get' action='/animals' name='filterForm' onChange={onFilterChange} ref={formRef} onSubmit={handleSubmit} className={classes.filterForm}>
                     <Dropdown options={typeOptions} name="type" selectLabel="Type" onChange={handleTypeChange} value={typeValue} hasSearch />
-                    <Dropdown options={breedOptions} name="breed" selectLabel="Breed" key={typeValue + breedOptions[0].value} onChange={handleBreedChange} value={breedValue} multi hasSearch disabled={breedDisabled} />
+                    {breedOptions.length > 0 && <Dropdown options={breedOptions} name="breed" selectLabel="Breed" key={typeValue + breedOptions[0].value} onChange={handleBreedChange} value={breedValue} multi hasSearch disabled={breedDisabled} />}
                     <Dropdown options={ageOptions} name="age" selectLabel="Age" onChange={handleAgeChange} value={ageValue} multi />
                     <Dropdown options={sizeOptions} name="size" selectLabel="Size" onChange={handleSizeChange} value={sizeValue} multi />
                     <Dropdown options={genderOptions} name="gender" selectLabel="Gender" onChange={handleGenderChange} value={genderValue} multi />

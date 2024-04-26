@@ -7,7 +7,6 @@ import { routesConfig } from './routes';
 
 const Router = createBrowserRouter(routesConfig as RouteObject[])
 const App = () => {
-  // eslint-disable-next-line no-unused-vars
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
