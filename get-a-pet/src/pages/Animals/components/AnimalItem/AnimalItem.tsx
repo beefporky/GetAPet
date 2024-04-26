@@ -10,7 +10,7 @@ type AnimalItemProps = {
 }
 
 const AnimalItem = ({ animal }: AnimalItemProps) => {
-    const img = animal.photos.length > 0 ? animal.photos[0].medium : animalPlaceHolder;
+    const img = animal.photos.length > 0 ? animal.photos[0].small : animalPlaceHolder;
     const navigate = useNavigate();
 
     function handleItemClick() {
@@ -25,8 +25,8 @@ const AnimalItem = ({ animal }: AnimalItemProps) => {
                     <div className={classes.text}>
                         <h3>{animal.name}</h3>
                         <p className={classes.animalType}>{animal.type}</p>
-                        <p>{animal.breeds.primary}</p>
-                        <p>{animal.age}</p>
+                        <p className={classes.animalBreed}>{animal.breeds.primary}</p>
+                        <p className={classes.animalAge}>{animal.age}</p>
                         {animal.gender.toLowerCase() === 'male' ? <IoMdMale /> : <IoMdFemale />}
                     </div>
                 </div>

@@ -1,23 +1,3 @@
-/* backup animalitem */
-.listItem {
-    display: flex;
-    flex: 1 0 15rem;
-    flex-direction: row;
-    width: 600px; 
-    height: 300px;
-    border-radius: var(--default-border-radius);
-}
-
-.listItem img {
-    flex: 1;
-    width: 15rem;
-    min-width: 15rem;
-    max-width: 15rem;
-    object-fit: cover;
-    border-top-left-radius: var(--default-border-radius);
-    border-bottom-left-radius: var(--default-border-radius);
-}
-
 .listItem:hover {
     border-color: var(--color-secondary);
     cursor: pointer;
@@ -39,7 +19,6 @@
     border-bottom-right-radius: var(--default-border-radius);
 }
 
-
 .itemDetails p {
     margin-top: 0px;
     margin-bottom: 0px;
@@ -56,6 +35,8 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    width: 250px;
+    text-align: center;
 }
 
 .itemDetails .text {
@@ -66,11 +47,11 @@
     font-style: italic;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 320px) {
     .listItemContainer {
-        width: 40%
+        width: 45%
     }
-    
+
     .listItem {
         display: flex;
         flex-direction: column;
@@ -81,14 +62,16 @@
         margin: auto;
         justify-content: stretch;
         align-items: center;
+        min-height: 250px;
+        max-height: 250px;
     }
     
     .listItem img {
-        flex: 1;
-        margin: auto;
+        min-width: 100%;
+        min-height: 125px;
+        max-height: 125px;
+        height: 100%;
         width: 100%;
-        max-width: 300px;
-        max-height: 300px;
         border-radius: var(--default-border-radius) var(--default-border-radius) 0 0;
     }
     
@@ -96,14 +79,16 @@
         flex: 1;
         margin: auto;
         width: 100%;
+        max-width: 100%;
+        min-width: 100%;
         border-radius: 0 0 var(--default-border-radius) var(--default-border-radius);
-
     }
-    
+
     .itemDetails p {
         margin-top: 0px;
         margin-bottom: 0px;
-        font-size: 1rem;
+        font-size: .8em;
+
     }
     
     .itemDetails p,h3 {
@@ -113,6 +98,7 @@
     
     .itemDetails h3 {
         font-size: 1.3rem;
+        width: 100px;
     }
     .itemDetails .text {
         margin: auto;
@@ -120,24 +106,187 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 10px;
+        text-align: center;
+        width: 100%;
+        height: 100%;
     }
 
     .itemDetails .animalType {
-        visibility: hidden;
+        display: none;
+    }
+
+    .itemDetails .animalAge {
+        display: none;
+    }
+
+    .itemDetails .animalBreed {
+        word-wrap: break-word;
     }
     
     .itemDetails .text .description {
         font-style: italic;
     }
+}
+
+
+@media screen and (min-width: 425px) {
+    .listItemContainer {
+        width: 45%
+    }
+
+    .listItem {
+        max-width: 100%; 
+        height: 100%;
+        min-height: 300px;
+        max-height: 300px;
+    }
     
+    .listItem img {
+        min-width: 100%;
+        min-height: 200px;
+        max-height: 200px;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .itemDetails {
+        flex: 1;
+        margin: auto;
+    }
+
+    .itemDetails p {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-size: .9em;
+
+    }
+    
+    .itemDetails h3 {
+        font-size: 1.3rem;
+        width: 100px;
+    }
+
+    .itemDetails .animalBreed {
+        word-wrap: break-word;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .listItemContainer {
+        width: 45%
+    }
+
+    .listItem {
+        max-width: 100%; 
+        max-width: 300px;
+        height: 100%;
+        min-height: 500px;
+        max-height: 300px;
+    }
+    
+    .listItem img {
+        min-width: 100%;
+        min-height: 300px;
+        max-height: 200px;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .itemDetails {
+        flex: 1;
+        margin: auto;
+    }
+
+    .itemDetails p {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-size: 1em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 300px;
+    }
+    
+    .itemDetails h3 {
+        font-size: 1.3rem;
+        width: 300px;
+    }
+
+    .itemDetails .animalType {
+        display: block;
+    }
+
+    .itemDetails .animalAge {
+        display: block;
+    }
 }
 
 @media screen and (min-width: 1024px){
-    .listItem {
-        max-width: 440px;
-    }
     .itemDetails {
-        max-width: 200px;
+        max-width: 50px;
+    }
+
+    .listItemContainer {
+        height: 300px;
+        width: 400px;
+    }
+
+    .listItem {
+        display: flex;
+        flex: 1 0 15rem;
+        flex-direction: row;
+        width: 600px; 
+        height: 300px;
+        border-radius: var(--default-border-radius);
+        max-width: 400px;
+        height: 300px;
+        min-height: 300px;
+        margin: 0px;
+    }
+    
+    .listItem img {
+        flex: 1;
+        object-fit: cover;
+        border-top-right-radius: 0px;
+        border-top-left-radius: var(--default-border-radius);
+        border-bottom-left-radius: var(--default-border-radius);
+        min-width: 200px;
+    }
+
+    .itemDetails {
+        width: 100px;
+        max-width: 100px;
+        min-width: 200px;
+        height: 300px;
+        max-height: 300px;
+        min-height: 300px;
+        border-top-right-radius: var(--default-border-radius);
+        border-bottom-right-radius: var(--default-border-radius);
+        border-bottom-left-radius: 0px;
+    }
+
+    .itemDetails .text {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        max-width: 150px;
+    }
+
+    .itemDetails p {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-size: 1em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 150px;
+    }
+    
+    .itemDetails h3 {
+        font-size: 1.3rem;
+        width: 150px;
     }
 }
