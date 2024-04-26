@@ -10,7 +10,7 @@ type AnimalItemProps = {
 }
 
 const AnimalItem = ({ animal }: AnimalItemProps) => {
-    const img = animal.photos.length > 0 ? animal.photos[0].small : animalPlaceHolder;
+    const img = animal.photos.length > 0 ? { photo: animal.photos[0].small, style: 'imgCover' } : { photo: animalPlaceHolder, style: 'imgContain' };
     const navigate = useNavigate();
 
     function handleItemClick() {
@@ -20,7 +20,7 @@ const AnimalItem = ({ animal }: AnimalItemProps) => {
     return (
         <li onClick={handleItemClick} className={classes.listItemContainer}>
             <div className={classes.listItem}>
-                <img src={img} alt={animal.name} />
+                <img src={img.photo} alt={animal.name} className={`${classes.animalPhoto} ${classes[img.style]}`} />
                 <div className={classes.itemDetails}>
                     <div className={classes.text}>
                         <h3>{animal.name}</h3>
