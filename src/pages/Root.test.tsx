@@ -3,12 +3,12 @@ import { render } from '../test/test-utils';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { routesConfig } from '../routes';
 
-describe("Root", () => {
+describe("RootLayout", () => {
     afterEach(() => {
         cleanup();
     });
 
-    it("should render the Root Layout with the Header", () => {
+    it("should render the RootLayout Layout with the Header", () => {
         // Arrange
         const router = createBrowserRouter(routesConfig as RouteObject[]);
 

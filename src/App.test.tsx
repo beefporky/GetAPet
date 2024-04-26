@@ -18,10 +18,10 @@ describe('App', () => {
     });
 
     it("should test the routes and landing page", async () => {
-        render(<App />);
+        const { container } = render(<App />);
         expect(screen.getByText('The Best Pets Available')).toBeInTheDocument();
 
-        const links = screen.getAllByRole('link');
+        const links = container.querySelectorAll('nav a');
         const linkTexts = ['Home', 'Animals', 'Organizations'];
         const navRoutes = ['/', '/animals', '/organizations'];
         links.forEach((link) => {

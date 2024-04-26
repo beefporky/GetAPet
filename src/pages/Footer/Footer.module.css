@@ -1,0 +1,10 @@
+.footer {
+    color: var(--color-secondary);
+    left: 0;
+    bottom: 0;
+}
+
+.footer a {
+    text-decoration: underline;
+    color: var(--color-secondary);
+}

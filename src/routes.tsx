@@ -1,4 +1,4 @@
-import Root from './pages/Root';
+import RootLayout from './pages/Root';
 import HomePage from './pages/HomePage/HomePage';
 import AnimalsPage from './pages/Animals/Animals';
 import OrganizationsPage, { loader as organizationsLoader } from './pages/Organizations/Organizations';
@@ -13,7 +13,7 @@ import OrganizationDetailsPage, { loader as organizationDetailsLoader } from './
 export const routesConfig = [
   {
     path: '/',
-    element: <Root />,
+    element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [{
       index: true,

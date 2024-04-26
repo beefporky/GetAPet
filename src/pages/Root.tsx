@@ -6,20 +6,21 @@ import AnimalsContextProvider from '../store/animals-context';
 import ModalContextProvider from '../components/ui/Modal/modal-context';
 import { isTokenValid } from '../utils/auth';
 import { Request } from '../utils/network';
+import Footer from './Footer/Footer';
 
-const Root = () => {
+const RootLayout = () => {
     return (
         <AnimalsContextProvider>
             <ModalContextProvider>
                 <Header />
                 <Outlet />
-                {/* <Modal /> */}
+                <Footer />
             </ModalContextProvider>
         </AnimalsContextProvider>
     )
 }
 
-export default Root
+export default RootLayout
 
 export function loader({ request }: Request) {
     const newUrl = new URL(request.url);
